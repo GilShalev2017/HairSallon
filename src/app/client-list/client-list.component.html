@@ -1,1 +1,26 @@
-<p>client-list works!</p>
+<!-- <input type="text" [(ngModel)]="search.firstName" placeholder="Search by First Name" />
+<input type="text" [(ngModel)]="search.lastName" placeholder="Search by Last Name" /> -->
+
+<!-- <mat-form-field> -->
+  <!-- <mat-label>Input</mat-label> -->
+  <input matInput type="text" [(ngModel)]="search.firstName" placeholder="Search by First Name" >
+<!-- </mat-form-field> -->
+
+<!-- <mat-form-field> -->
+  <!-- <mat-label>Input</mat-label> -->
+  <input matInput type="text" [(ngModel)]="search.lastName" placeholder="Search by Last Name" >
+<!-- </mat-form-field> -->
+
+<button mat-stroked-button color="accent" (click)="searchClients()">Search</button>
+<button mat-raised-button color="primary" (click)="openCreateClientDialog()">Create New Client</button>
+
+<ul>
+  <li *ngFor="let client of clients">
+    {{ client.firstName }} {{ client.lastName }} ({{ client.phone }})
+    <ul>
+      <li *ngFor="let treatment of client.treatments">
+        {{ treatment.date }} - {{ treatment.description }} (${{ treatment.price }})
+      </li>
+    </ul>
+  </li>
+</ul>
