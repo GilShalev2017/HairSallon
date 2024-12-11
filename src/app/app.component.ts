@@ -8,5 +8,5 @@ import { ClientListComponent } from "./client-list/client-list.component";
   styleUrl: './app.component.css'
 })
 export class AppComponent {
-  title = 'Hair Salon Management';
+  title = "Edgardo's Hair Salon";
 }

@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { Client } from '../models/models';
-import { ClientService } from '../services/client.service';
 import { MatDialogRef } from '@angular/material/dialog';
 
 @Component({
@@ -17,8 +16,7 @@ export class ClientFormComponent {
     treatments: [],
   };
 
-  constructor(private clientService: ClientService,public dialogRef: MatDialogRef<ClientFormComponent>) {}
-
+  constructor(public dialogRef: MatDialogRef<ClientFormComponent>) {}
 
   onCancel(): void {
     this.dialogRef.close();

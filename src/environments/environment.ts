@@ -1,5 +1,4 @@
 export const environment = {
-    production: false,
-    apiUrl: 'https://hairsallonbackend-gbbuhcf4akbedkc2.westeurope-01.azurewebsites.net'
-  };
-  
+  production: false,
+  apiUrl: 'http://localhost:3000/api'
+};
