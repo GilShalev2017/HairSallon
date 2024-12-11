@@ -122,4 +122,8 @@ export class ClientListComponent implements OnInit{
     });
   }
 
+  toggleExpand(element: any): void {
+    this.expandedElement = this.expandedElement === element ? null : element;
+  }
+  
 }
