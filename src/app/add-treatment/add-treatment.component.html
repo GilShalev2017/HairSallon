@@ -3,20 +3,21 @@
     <form #treatmentForm="ngForm">
         <mat-form-field appearance="fill">
             <mat-label>Date</mat-label>
-            <input matInput [(ngModel)]="treatment.date" name="date" required type="date" />
+            <input matInput [(ngModel)]="treatment.date" [matDatepicker]="picker" name="date" required />
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
         </mat-form-field>
         <mat-form-field appearance="fill">
             <mat-label>Description</mat-label>
-            <input matInput [(ngModel)]="treatment.description" name="description" required />
+            <input matInput [(ngModel)]="treatment.description" name="description" required  />
         </mat-form-field>
         <mat-form-field appearance="fill">
             <mat-label>Price</mat-label>
-            <input matInput type="number" [(ngModel)]="treatment.price" name="price" required />
+            <input matInput type="number" [(ngModel)]="treatment.price" name="price" required  />
         </mat-form-field>
     </form>
 </div>
 <div mat-dialog-actions>
-    <button mat-button mat-dialog-close>Cancel</button>
-    <button mat-raised-button color="primary" [disabled]="!treatmentForm.form.valid"
-        (click)="onAddTreatment()">Add</button>
+    <button mat-button mat-dialog-close >Cancel</button>
+    <button mat-raised-button color="primary" [disabled]="!treatmentForm.form.valid" (click)="onAddTreatment()">Add</button>
 </div>

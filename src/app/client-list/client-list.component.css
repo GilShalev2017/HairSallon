@@ -1,123 +1,151 @@
-/* table {
-  width: 100%;
-}
+ table {
+   width: 100%;
+ }
 
-tr.example-detail-row {
-  height: 0;
-}
+ tr.example-detail-row {
+   height: 0;
+ }
 
-tr.example-element-row:not(.example-expanded-row):hover {
-  background: whitesmoke;
-}
+ tr.example-element-row:not(.example-expanded-row):hover {
+   background: whitesmoke;
+ }
 
-tr.example-element-row:not(.example-expanded-row):active {
-  background: #efefef;
-}
+ tr.example-element-row:not(.example-expanded-row):active {
+   background: #efefef;
+ }
 
-.example-element-row td {
-  border-bottom-width: 0;
-}
+ .example-element-row td {
+   border-bottom-width: 0;
+ }
 
-.example-element-detail {
-  overflow: hidden;
-  display: flex;
-}
+ .example-element-detail {
+   overflow: hidden;
+   display: flex;
+ }
 
-.example-element-diagram {
-  min-width: 80px;
-  border: 2px solid black;
-  padding: 8px;
-  font-weight: lighter;
-  margin: 8px 0;
-  height: 104px;
-}
+ .search-control {
+   height: 30px !important;
+   flex: 1;
+ }
 
-.example-element-symbol {
-  font-weight: bold;
-  font-size: 40px;
-  line-height: normal;
-}
+ .search-button {
+   height: 36px;
+   min-width: 100px;
+ }
 
-.example-element-description {
-  padding: 16px;
-}
+ .create-button {
+   align-self: flex-end;
+ }
 
-.example-element-description-attribution {
-  opacity: 0.5;
-}
+ .actions-cell {
+   display: flex;
+   justify-content: flex-end;
+   align-items: center;
+   gap: 8px;
+ }
 
-.search-control {
-  height: 30px !important;
-  flex: 1;
-}
+ .search-bar,
+ .actions {
+   display: flex;
+   flex-wrap: wrap;
+   gap: 8px;
+   justify-content: space-between;
+   margin-bottom: 16px;
+ }
 
-.search-button {
-  height: 36px;
-  min-width: 100px;
-}
+ .search-bar input,
+ .actions button {
+   flex: 1 1 auto;
+ }
 
-.create-button {
-  align-self: flex-end;
-}
+ .actions {
+   margin-left: 10px;
+ }
 
-.actions-cell {
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  gap: 8px;
-}
 
-.refresh {
-  margin-right: 10px;
-} */
+ /* Mobile View */
+ .responsive-table {
+   width: 100%;
+   overflow-x: auto;
+ }
 
-.main-container {
-  padding: 16px;
-}
+ @media screen and (max-width: 768px) {
 
-.search-bar,
-.actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  justify-content: space-between;
-  margin-bottom: 16px;
-}
+   .search-bar,
+   .actions {
+     flex-direction: column;
+     align-items: stretch;
+   }
 
-.search-bar input,
-.actions button {
-  flex: 1 1 auto;
-}
+   .responsive-table th,
+   .responsive-table td {
+     font-size: 12px;
+     padding: 4px;
+   }
 
-.responsive-table {
-  width: 100%;
-  overflow-x: auto;
-}
+   .actions-cell button {
+     padding: 4px;
+   }
+ }
 
-@media screen and (max-width: 768px) {
-  .search-bar,
-  .actions {
-    flex-direction: column;
-    align-items: stretch;
-  }
+ /* @media screen and (max-width: 375px) {
+   .search-bar input {
+     font-size: 12px;
+   }
+   .actions button {
+     font-size: 12px;
+   }
+ } */
 
-  .responsive-table th,
-  .responsive-table td {
-    font-size: 12px;
-    padding: 4px;
-  }
+ .client-card {
+   border: 1px solid #ccc;
+   border-radius: 8px;
+   margin-bottom: 16px;
+   padding: 16px;
+   background-color: #f9f9f9;
+ }
 
-  .actions-cell button {
-    padding: 4px;
-  }
-}
+ .client-header {
+   display: flex;
+   justify-content: space-between;
+   flex-wrap: wrap;
+   margin-bottom: 8px;
+ }
 
-@media screen and (max-width: 375px) {
-  .search-bar input {
-    font-size: 12px;
-  }
+ .client-header p {
+   margin: 4px 0;
+   flex: 1 1 auto;
+ }
 
-  .actions button {
-    font-size: 12px;
-  }
-}
+ .mobile-table {
+   width: 100%;
+   border-collapse: collapse;
+   margin-top: 8px;
+ }
+
+ .mobile-table th,
+ .mobile-table td {
+   padding: 8px;
+   text-align: left;
+   border: 1px solid #ddd;
+ }
+
+ .mobile-table th {
+   background-color: #f2f2f2;
+ }
+
+ .mobile-table td {
+   font-size: 14px;
+ }
+
+ @media screen and (max-width: 768px) {
+   .client-header p {
+     font-size: 14px;
+   }
+
+   .mobile-table th,
+   .mobile-table td {
+     font-size: 12px;
+     padding: 6px;
+   }
+ }

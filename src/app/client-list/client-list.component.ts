@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, HostListener, OnInit, ViewChild } from '@angular/core';
 import { Client, Treatment } from '../models/models';
 import { ClientService } from '../services/client.service';
 import { ClientFormComponent } from '../client-form/client-form.component';
@@ -15,30 +15,38 @@ import { AddTreatmentComponent } from '../add-treatment/add-treatment.component'
   styleUrl: './client-list.component.css',
   animations: [
     trigger('detailExpand', [
-      state('collapsed,void', style({height: '0px', minHeight: '0'})),
-      state('expanded', style({height: '*'})),
+      state('collapsed,void', style({ height: '0px', minHeight: '0' })),
+      state('expanded', style({ height: '*' })),
       transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
     ]),
   ],
 })
-export class ClientListComponent implements OnInit{
- 
+export class ClientListComponent implements OnInit {
+
   clients: Client[] = [];
   search = { firstName: '', lastName: '' };
   dataSource = new MatTableDataSource<Client>([]);
   pageSizeOptions = [5, 10, 25];
- 
+
   columnsToDisplay = ['firstName', 'lastName', 'phone', 'email'];
   columnsToDisplayWithExpand = [...this.columnsToDisplay, 'expand'];
   expandedElement: Client | null = null;
-  
+
   treatmentColumns: string[] = ['date', 'description', 'price'];
 
+  filteredClients: Client[] = [];
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
-  
+
   constructor(private clientService: ClientService, private dialog: MatDialog) { }
+
+  isMobile: boolean = window.innerWidth <= 600;
+
+  @HostListener('window:resize', [])
+  onResize() {
+    this.isMobile = window.innerWidth <= 600;
+  }
 
   ngOnInit() {
     this.getAllClients();
@@ -59,7 +67,11 @@ export class ClientListComponent implements OnInit{
     this.clientService
       .searchClients(this.search.firstName, this.search.lastName)
       .subscribe((result) => {
-        this.dataSource.data = result;
+        this.dataSource.data = result.map(client => ({
+          ...client,
+          treatments: client.treatments || [] // Default to an empty array if undefined
+        }));
+        this.filteredClients = this.dataSource.data;
       });
   }
 
@@ -80,11 +92,11 @@ export class ClientListComponent implements OnInit{
           },
           error: (err) => console.error('Error adding client:', err),
         });
-        
+
       }
     });
   }
-  
+
   deleteClient(client: Client): void {
     if (confirm(`Are you sure you want to delete ${client.firstName} ${client.lastName}?`)) {
       this.clientService.deleteClient(client._id!).subscribe({
@@ -96,9 +108,9 @@ export class ClientListComponent implements OnInit{
       });
     }
   }
- 
+
   refresh() {
-    this.getAllClients(); 
+    this.getAllClients();
   }
 
   openAddTreatmentDialog(client: Client): void {
@@ -112,7 +124,7 @@ export class ClientListComponent implements OnInit{
         this.clientService.addTreatment(client._id!, treatment).subscribe({
           next: (updatedClient) => {
             console.log('Client updated successfully', updatedClient);
-            this.getAllClients(); 
+            this.getAllClients();
           },
           error: (err) => {
             console.error('Failed to add treatment', err);
@@ -125,5 +137,12 @@ export class ClientListComponent implements OnInit{
   toggleExpand(element: any): void {
     this.expandedElement = this.expandedElement === element ? null : element;
   }
+
+  editTreatment(client: any, treatment: any): void {
+    // Logic to edit an existing treatment
+  }
   
+  deleteTreatment(client: any, treatment: any): void {
+    // Logic to delete an existing treatment
+  }
 }
