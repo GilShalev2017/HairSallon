@@ -11,7 +11,7 @@ export class AddTreatmentComponent {
   treatment: Treatment = {
     date: this.formatDate(new Date()),
     description: '',
-    price: 100
+    price: 0
   };
 
   constructor(private dialogRef: MatDialogRef<AddTreatmentComponent>) {}

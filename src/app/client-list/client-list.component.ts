@@ -8,6 +8,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { AddTreatmentComponent } from '../add-treatment/add-treatment.component';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-client-list',
@@ -33,15 +34,22 @@ export class ClientListComponent implements OnInit {
   expandedElement: Client | null = null;
 
   treatmentColumns: string[] = ['date', 'description', 'price'];
-
   filteredClients: Client[] = [];
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
-  constructor(private clientService: ClientService, private dialog: MatDialog) { }
-
   isMobile: boolean = window.innerWidth <= 600;
+  columnTranslations: { [key: string]: string } = {};
+
+  constructor(private clientService: ClientService, private dialog: MatDialog,
+    private translateService: TranslateService
+  ) {
+    this.columnTranslations['firstName'] = this.translateService.instant('COLUMN.FIRST_NAME');
+    this.columnTranslations['lastName'] = this.translateService.instant('COLUMN.LAST_NAME');
+    this.columnTranslations['phone'] = this.translateService.instant('COLUMN.PHONE');
+    this.columnTranslations['email'] = this.translateService.instant('COLUMN.EMAIL');
+  }
 
   @HostListener('window:resize', [])
   onResize() {
@@ -125,6 +133,7 @@ export class ClientListComponent implements OnInit {
           next: (updatedClient) => {
             console.log('Client updated successfully', updatedClient);
             this.getAllClients();
+            client.treatments.push(treatment);
           },
           error: (err) => {
             console.error('Failed to add treatment', err);
@@ -141,7 +150,7 @@ export class ClientListComponent implements OnInit {
   editTreatment(client: any, treatment: any): void {
     // Logic to edit an existing treatment
   }
-  
+
   deleteTreatment(client: any, treatment: any): void {
     // Logic to delete an existing treatment
   }

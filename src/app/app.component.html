@@ -1,4 +1,13 @@
 <div class="app-container">
-  <h1>Edgardo's Hair Salon</h1>
+  <div>
+    <mat-form-field appearance="fill">
+      <mat-label>Select Language</mat-label>
+      <mat-select [(value)]="selectedLanguage" (selectionChange)="changeLanguage($event.value)">
+        <mat-option value="en">English</mat-option>
+        <mat-option value="he">עברית</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+  <h1>{{ 'TITLE' | translate }}</h1>
   <app-client-list></app-client-list>
 </div>

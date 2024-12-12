@@ -1,0 +1,25 @@
+{
+  "TITLE": "המספרה של אדגרדו",
+  "ADD_TREATMENT": "הוסף טיפול",
+  "DATE": "תאריך",
+  "DESCRIPTION": "תיאור",
+  "PRICE": "מחיר",
+  "SEARCH_BY_FIRST_NAME": "חפש לפי שם פרטי",
+  "SEARCH_BY_LAST_NAME": "חפש לפי שם משפחה",
+  "SEARCH": "חפש",
+  "ADD_NEW_CLIENT": "הוסף לקוח חדש",
+  "REFRESH": "רענן",
+  "FIRST_NAME": "שם פרטי",
+  "LAST_NAME": "שם משפחה",
+  "PHONE": "טלפון",
+  "EMAIL": "דואר אלקטרוני",
+  "CANCEL": "בטל",
+  "SAVE": "שמור",
+  "NO_CLIENTS_FOUND_ADJUST_YOUR_SEARCH_AND_TRY_AGAIN": "לא נמצאו לקוחות. התאם את החיפוש ונסה מחדש.",
+  "COLUMN": {
+    "FIRST_NAME": "שם פרטי",
+    "LAST_NAME": "שם משפחה",
+    "PHONE": "טלפון",
+    "EMAIL": "דואר אלקטרוני"
+  }
+}

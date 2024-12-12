@@ -1,25 +1,25 @@
-<h1 mat-dialog-title>Create Client</h1>
+<h1 mat-dialog-title>{{'ADD_NEW_CLIENT' | translate}}</h1>
 <div mat-dialog-content>
   <form #clientForm="ngForm">
     <mat-form-field>
-      <mat-label>First Name</mat-label>
+      <mat-label>{{'FIRST_NAME' | translate}}</mat-label>
       <input matInput [(ngModel)]="client.firstName" name="firstName" required />
     </mat-form-field>
     <mat-form-field>
-      <mat-label>Last Name</mat-label>
+      <mat-label>{{'LAST_NAME' | translate}}</mat-label>
       <input matInput [(ngModel)]="client.lastName" name="lastName" required />
     </mat-form-field>
     <mat-form-field>
-      <mat-label>Phone</mat-label>
+      <mat-label>{{'PHONE' | translate}}</mat-label>
       <input matInput [(ngModel)]="client.phone" name="phone" required />
     </mat-form-field>
     <mat-form-field>
-      <mat-label>Email</mat-label>
+      <mat-label>{{'EMAIL' | translate}}</mat-label>
       <input matInput [(ngModel)]="client.email" name="email" required />
     </mat-form-field>
   </form>
 </div>
 <div mat-dialog-actions>
-  <button mat-button (click)="onCancel()">Cancel</button>
-  <button mat-button [disabled]="!clientForm.form.valid" (click)="onSave()">Save</button>
+  <button mat-button (click)="onCancel()">{{'CANCEL' | translate}}</button>
+  <button mat-button [disabled]="!clientForm.form.valid" (click)="onSave()">{{'SAVE' | translate}}</button>
 </div>

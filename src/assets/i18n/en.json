@@ -1,0 +1,25 @@
+{
+    "TITLE": "Edgardo's Hair Salon",
+    "ADD_TREATMENT": "Add Treatment",
+    "DATE": "Date",
+    "DESCRIPTION": "Description",
+    "PRICE": "Price",
+    "SEARCH_BY_FIRST_NAME": "Search by First Name",
+    "SEARCH_BY_LAST_NAME": "Search by Last Name",
+    "SEARCH": "Search",
+    "ADD_NEW_CLIENT": "Add New Client",
+    "REFRESH": "Refresh",
+    "FIRST_NAME": "First Name",
+    "LAST_NAME": "Last Name",
+    "PHONE": "Telephone",
+    "EMAIL": "Email",
+    "CANCEL": "Cancel",
+    "SAVE": "Save",
+    "NO_CLIENTS_FOUND_ADJUST_YOUR_SEARCH_AND_TRY_AGAIN": "No clients found. Adjust your search and try again.",
+    "COLUMN": {
+        "FIRST_NAME": "First Name",
+        "LAST_NAME": "Last Name",
+        "PHONE": "Phone",
+        "EMAIL": "Email"
+    }
+}
