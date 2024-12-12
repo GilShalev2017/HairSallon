@@ -21,5 +21,6 @@
         "LAST_NAME": "Last Name",
         "PHONE": "Phone",
         "EMAIL": "Email"
-    }
+    },
+    "ACTIONS": "Actions"
 }

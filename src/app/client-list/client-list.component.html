@@ -142,14 +142,14 @@
   <div *ngIf="filteredClients.length > 0; else noResults">
     <div *ngFor="let client of filteredClients" class="client-card">
       <div class="client-header">
-        <p><strong>First Name:</strong> {{ client.firstName }}</p>
-        <p><strong>Last Name:</strong> {{ client.lastName }}</p>
+        <p><strong>{{'FIRST_NAME' | translate}}</strong> {{ client.firstName }}</p>
+        <p><strong>{{'LAST_NAME' | translate}}</strong> {{ client.lastName }}</p>
       </div>
 
       <!-- Add Treatment Button -->
       <div class="actions">
         <button mat-raised-button color="primary" (click)="openAddTreatmentDialog(client)">
-          Add Treatment
+          {{ 'ADD_TREATMENT' | translate}}
         </button>
       </div>
 
@@ -157,10 +157,10 @@
         <table class="mobile-table">
           <thead>
             <tr>
-              <th>Date</th>
-              <th>Description</th>
-              <th>Price</th>
-              <th>Actions</th>
+              <th>{{'DATE' | translate}}</th>
+              <th>{{'DESCRIPTION' | translate}}</th>
+              <th>{{'PRICE' | translate}}</th>
+              <th>{{'ACTIONS' | translate}}</th>
             </tr>
           </thead>
           <tbody>
