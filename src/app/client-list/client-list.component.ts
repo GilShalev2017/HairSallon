@@ -154,4 +154,8 @@ export class ClientListComponent implements OnInit {
   deleteTreatment(client: any, treatment: any): void {
     // Logic to delete an existing treatment
   }
+
+  clearSearch(field: keyof typeof this.search): void {
+    this.search[field] = '';  // Clear the specific field
+  }
 }

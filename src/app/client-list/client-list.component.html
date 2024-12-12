@@ -1,78 +1,44 @@
 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
-  <div class="search-bar">
+  <div class="search-bar" *ngIf="!isMobile">
     <input matInput type="text" [(ngModel)]="search.firstName" placeholder="{{ 'SEARCH_BY_FIRST_NAME' | translate}}"
       class="search-control">
-    <input matInput type="text" [(ngModel)]="search.lastName" placeholder="{{ 'SEARCH_BY_LAST_NAME' | translate}}" class="search-control">
-    <!-- <input matInput type="text" [(ngModel)]="search.remark" placeholder="Search by Last Remark" class="search-control"> -->
-    <button mat-stroked-button color="accent" (click)="searchClients()" class="search-button">{{ 'SEARCH' | translate}}</button>
+    <input matInput type="text" [(ngModel)]="search.lastName" placeholder="{{ 'SEARCH_BY_LAST_NAME' | translate}}"
+      class="search-control">
+    <button mat-stroked-button color="accent" (click)="searchClients()" class="search-button">{{ 'SEARCH' |
+      translate}}</button>
   </div>
+  <div class="search-bar" *ngIf="isMobile">
+    <mat-form-field class="search-control" appearance="fill">
+      <mat-label>{{ 'SEARCH_BY_FIRST_NAME' | translate }}</mat-label>
+      <input matInput type="text" [(ngModel)]="search.firstName" placeholder="{{ 'SEARCH_BY_FIRST_NAME' | translate }}">
+      <button *ngIf="search.firstName" mat-icon-button matSuffix (click)="clearSearch('firstName')"
+        aria-label="Clear First Name">
+        <mat-icon>clear</mat-icon>
+      </button>
+    </mat-form-field>
+    <mat-form-field class="search-control" appearance="fill">
+      <mat-label>{{ 'SEARCH_BY_LAST_NAME' | translate }}</mat-label>
+      <input matInput type="text" [(ngModel)]="search.lastName" placeholder="{{ 'SEARCH_BY_LAST_NAME' | translate }}">
+      <button *ngIf="search.lastName" mat-icon-button matSuffix (click)="clearSearch('lastName')"
+        aria-label="Clear Last Name">
+        <mat-icon>clear</mat-icon>
+      </button>
+    </mat-form-field>
+    <button mat-stroked-button color="accent" (click)="searchClients()" class="search-button">{{ 'SEARCH' | translate
+      }}</button>
+  </div>
+
   <div class="actions">
     <button mat-stroked-button color="primary" (click)="refresh()">
       {{'REFRESH' | translate}}
     </button>
     <button mat-raised-button color="primary" (click)="openCreateClientDialog()">
-     {{'ADD_NEW_CLIENT' | translate}}
+      {{'ADD_NEW_CLIENT' | translate}}
     </button>
   </div>
 </div>
 
 <div *ngIf="!isMobile">
-  <!-- <table mat-table [dataSource]="dataSource" multiTemplateDataRows class="mat-elevation-z8 responsive-table">
-    @for (column of columnsToDisplay; track column) {
-    <ng-container matColumnDef="{{column}}">
-      <td mat-cell *matCellDef="let element"> {{element[column]}} </td>
-    </ng-container>
-    }
-    <ng-container matColumnDef="expand">
-      <th mat-header-cell *matHeaderCellDef aria-label="row actions">&nbsp;</th>
-      <td mat-cell *matCellDef="let element" class="actions-cell">
-        <button mat-icon-button color="warn" aria-label="delete client"
-          (click)="deleteClient(element); $event.stopPropagation()">
-          <mat-icon>delete</mat-icon>
-        </button>
-        <button mat-icon-button color="primary" aria-label="Add treatment" (click)="openAddTreatmentDialog(element)">
-          <mat-icon>add</mat-icon>
-        </button>
-        <button mat-icon-button aria-label="expand row"
-          (click)="(expandedElement = expandedElement === element ? null : element); $event.stopPropagation()">
-          @if (expandedElement === element) {
-          <mat-icon>keyboard_arrow_up</mat-icon>
-          } @else {
-          <mat-icon>keyboard_arrow_down</mat-icon>
-          }
-        </button>
-      </td>
-    </ng-container>
-    <ng-container matColumnDef="expandedDetail">
-      <td mat-cell *matCellDef="let element" [attr.colspan]="columnsToDisplayWithExpand.length">
-        <div class="example-element-detail" [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
-          <table mat-table [dataSource]="element.treatments" class="mat-elevation-z8">
-            <ng-container matColumnDef="date">
-              <th mat-header-cell *matHeaderCellDef> {{'DATE' | translate}} </th>
-              <td mat-cell *matCellDef="let treatment"> {{ treatment.date | date }} </td>
-            </ng-container>
-            <ng-container matColumnDef="description">
-              <th mat-header-cell *matHeaderCellDef> {{'DESCRIPTION' | translate}} </th>
-              <td mat-cell *matCellDef="let treatment"> {{ treatment.description }} </td>
-            </ng-container>
-            <ng-container matColumnDef="price">
-              <th mat-header-cell *matHeaderCellDef> {{'PRICE' | translate}}  </th>
-              <td mat-cell *matCellDef="let treatment"> {{ treatment.price | currency:'ILS':'symbol':'1.2-2'  }} </td>
-            </ng-container>
-            <tr mat-header-row *matHeaderRowDef="treatmentColumns"></tr>
-            <tr mat-row *matRowDef="let row; columns: treatmentColumns;"></tr>
-          </table>
-        </div>
-      </td>
-    </ng-container>
-    <tr mat-header-row *matHeaderRowDef="columnsToDisplayWithExpand"></tr>
-    <tr mat-row *matRowDef="let element; columns: columnsToDisplayWithExpand;" class="example-element-row"
-      [class.example-expanded-row]="expandedElement === element"
-      (click)="expandedElement = expandedElement === element ? null : element">
-    </tr>
-    <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
-  </table> -->
-
   <table mat-table [dataSource]="dataSource" multiTemplateDataRows class="mat-elevation-z8 responsive-table">
     <!-- Loop through columnsToDisplay and dynamically create columns -->
     <ng-container *ngFor="let column of columnsToDisplay">
@@ -81,13 +47,14 @@
         <td mat-cell *matCellDef="let element"> {{ element[column] }} </td>
       </ng-container>
     </ng-container>
-  
+
     <!-- Expandable row actions column -->
     <ng-container matColumnDef="expand">
       <th mat-header-cell *matHeaderCellDef aria-label="row actions">&nbsp;</th>
       <td mat-cell *matCellDef="let element" class="actions-cell">
         <!-- Delete button -->
-        <button mat-icon-button color="warn" aria-label="delete client" (click)="deleteClient(element); $event.stopPropagation()">
+        <button mat-icon-button color="warn" aria-label="delete client"
+          (click)="deleteClient(element); $event.stopPropagation()">
           <mat-icon>delete</mat-icon>
         </button>
         <!-- Add treatment button -->
@@ -95,13 +62,14 @@
           <mat-icon>add</mat-icon>
         </button>
         <!-- Expand row button -->
-        <button mat-icon-button aria-label="expand row" (click)="expandedElement = expandedElement === element ? null : element; $event.stopPropagation()">
+        <button mat-icon-button aria-label="expand row"
+          (click)="expandedElement = expandedElement === element ? null : element; $event.stopPropagation()">
           <mat-icon *ngIf="expandedElement === element">keyboard_arrow_up</mat-icon>
           <mat-icon *ngIf="expandedElement !== element">keyboard_arrow_down</mat-icon>
         </button>
       </td>
     </ng-container>
-  
+
     <!-- Expanded row content -->
     <ng-container matColumnDef="expandedDetail">
       <td mat-cell *matCellDef="let element" [attr.colspan]="columnsToDisplay.length + 1">
@@ -109,7 +77,7 @@
           <table mat-table [dataSource]="element.treatments" class="mat-elevation-z8">
             <ng-container matColumnDef="date">
               <th mat-header-cell *matHeaderCellDef> {{'DATE' | translate}} </th>
-              <td mat-cell *matCellDef="let treatment"> {{ treatment.date | date }} </td>
+              <td mat-cell *matCellDef="let treatment"> {{ treatment.date | date : 'dd/MM/YYYY'}} </td>
             </ng-container>
             <ng-container matColumnDef="description">
               <th mat-header-cell *matHeaderCellDef> {{'DESCRIPTION' | translate}} </th>
@@ -125,16 +93,16 @@
         </div>
       </td>
     </ng-container>
-  
+
     <!-- Header and rows definition -->
     <tr mat-header-row *matHeaderRowDef="columnsToDisplayWithExpand"></tr>
     <tr mat-row *matRowDef="let element; columns: columnsToDisplayWithExpand;" class="example-element-row"
-        [class.example-expanded-row]="expandedElement === element"
-        (click)="expandedElement = expandedElement === element ? null : element">
+      [class.example-expanded-row]="expandedElement === element"
+      (click)="expandedElement = expandedElement === element ? null : element">
     </tr>
     <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
   </table>
-  
+
   <mat-paginator [pageSize]="5" [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
 </div>
 
@@ -165,9 +133,9 @@
           </thead>
           <tbody>
             <tr *ngFor="let treatment of client.treatments">
-              <td>{{ treatment.date | date }}</td>
+              <td>{{ treatment.date | date: 'dd/MM/YYYY' }}</td>
               <td>{{ treatment.description }}</td>
-              <td>{{ treatment.price | currency:'ILS':'symbol':'1.2-2'  }}</td>
+              <td>{{ treatment.price | currency:'ILS':'symbol':'1.2-2' }}</td>
               <td>
                 <!-- Action Buttons -->
                 <button mat-icon-button color="primary" aria-label="Edit treatment"
@@ -190,4 +158,3 @@
     <p>{{'NO_CLIENTS_FOUND_ADJUST_YOUR_SEARCH_AND_TRY_AGAIN' | translate}}</p>
   </ng-template>
 </div>
-
