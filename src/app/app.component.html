@@ -1,5 +1,12 @@
 <div class="app-container">
   <div>
+    <button *ngIf="!isLoggedIn" (click)="login()">Login</button>
+    <button *ngIf="isLoggedIn" (click)="logout()">Logout</button>
+    <div *ngIf="isLoggedIn">
+      Welcome, {{ username }}!
+    </div>
+  </div>
+  <div>
     <mat-form-field appearance="fill">
       <mat-label>Select Language</mat-label>
       <mat-select [(value)]="selectedLanguage" (selectionChange)="changeLanguage($event.value)">
@@ -11,3 +18,5 @@
   <h1>{{ 'TITLE' | translate }}</h1>
   <app-client-list></app-client-list>
 </div>
+
+<!-- <router-outlet></router-outlet> -->
