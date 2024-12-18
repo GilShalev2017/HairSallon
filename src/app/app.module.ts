@@ -43,43 +43,48 @@ import { InteractionType, IPublicClientApplication, PublicClientApplication } fr
 import { environment } from '../environments/environment.prod'; //CLOUD
 
 import { AppRoutingModule } from './app-routing.module'; // Import the routing module
-import { msalConfig } from './msal-config ';
 
 // import { msalConfig } from './msal-config'; // Import your MSAL config file
 
-export function MSALInstanceFactory(): IPublicClientApplication {
-  return new PublicClientApplication({
-    auth: {
-      clientId: environment.b2c.clientId,
-      authority: environment.b2c.authority,
-      redirectUri: environment.b2c.redirectUri
-    },
-    cache: {
-      cacheLocation: 'localStorage',
-      storeAuthStateInCookie: true
-    }
-  });
-}
+import { 
+  MSALInstanceFactory, 
+  MSALGuardConfigFactory, 
+  MSALInterceptorConfigFactory 
+} from './msal-config';
 
-export function MSALGuardConfigFactory(): MsalGuardConfiguration {
-  return {
-    interactionType: InteractionType.Redirect,
-    authRequest: {
-      scopes: environment.b2c.scopes, // Use scopes from environment
-    },
-  };
-}
+// export function MSALInstanceFactory(): IPublicClientApplication {
+//   return new PublicClientApplication({
+//     auth: {
+//       clientId: environment.b2c.clientId,
+//       authority: environment.b2c.authority,
+//       redirectUri: environment.b2c.redirectUri
+//     },
+//     cache: {
+//       cacheLocation: 'localStorage',
+//       storeAuthStateInCookie: true
+//     }
+//   });
+// }
 
-export function MSALInterceptorConfigFactory(): MsalInterceptorConfiguration {
-  const protectedResourceMap = new Map<string, Array<string>>([
-    [environment.apiUrl, environment.b2c.scopes], // Map API URL to scopes from environment
-  ]);
+// export function MSALGuardConfigFactory(): MsalGuardConfiguration {
+//   return {
+//     interactionType: InteractionType.Redirect,
+//     authRequest: {
+//       scopes: environment.b2c.scopes, // Use scopes from environment
+//     },
+//   };
+// }
 
-  return {
-    interactionType: InteractionType.Redirect,
-    protectedResourceMap: protectedResourceMap,
-  };
-}
+// export function MSALInterceptorConfigFactory(): MsalInterceptorConfiguration {
+//   const protectedResourceMap = new Map<string, Array<string>>([
+//     [environment.apiUrl, environment.b2c.scopes], // Map API URL to scopes from environment
+//   ]);
+
+//   return {
+//     interactionType: InteractionType.Redirect,
+//     protectedResourceMap: protectedResourceMap,
+//   };
+// }
 
 
 @NgModule({

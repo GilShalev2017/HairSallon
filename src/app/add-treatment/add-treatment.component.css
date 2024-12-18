@@ -1,0 +1,45 @@
+.mat-form-field {
+    width: 100%;
+}
+
+table {
+    width: 100%;
+    margin-top: 20px;
+}
+
+.full-width {
+    width: 100%;
+}
+
+.half-width {
+    width: 48%;
+    margin-right: 4%;
+}
+
+.color-input-group {
+    display: flex;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+tr.mat-mdc-footer-row td {
+    font-weight: bold;
+}
+
+/* .action-container {
+    visibility: hidden;
+}
+
+.mat-row.row-hover:hover .action-container {
+    visibility: visible;
+}
+
+.action-container {
+    transition: visibility 0.3s ease-in-out;
+}
+
+.delete-button {
+    margin: 0;
+    padding: 0;
+
+} */
