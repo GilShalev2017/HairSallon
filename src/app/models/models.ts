@@ -10,6 +10,11 @@ export enum JobType {
   HairStraighteningRoot = 'Hair Relax - Root'
 }
 
+export interface JobTypeItem{
+  name: string;
+  defaultPrice: number
+}
+
 export interface Treatment {
   date: string;
   remark: string;
@@ -24,7 +29,6 @@ export interface Job {
 }
 
 export interface Color {
-  //colorBrand: string;
   colorNumber: string;
   colorAmount: number;
 }

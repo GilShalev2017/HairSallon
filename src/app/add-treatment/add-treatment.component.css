@@ -16,30 +16,23 @@ table {
     margin-right: 4%;
 }
 
-.color-input-group {
-    display: flex;
-    align-items: center;
-    margin-bottom: 16px;
-}
-
 tr.mat-mdc-footer-row td {
     font-weight: bold;
 }
 
-/* .action-container {
-    visibility: hidden;
+.color-input-group {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    /* Adds some space between rows */
 }
 
-.mat-row.row-hover:hover .action-container {
-    visibility: visible;
+.color-input-group mat-form-field {
+    margin-right: 10px;
+    /* Gap between inputs */
 }
 
-.action-container {
-    transition: visibility 0.3s ease-in-out;
+.color-input-group button {
+    margin-left: 10px;
+    /* Adds a gap between the inputs and the button */
 }
-
-.delete-button {
-    margin: 0;
-    padding: 0;
-
-} */

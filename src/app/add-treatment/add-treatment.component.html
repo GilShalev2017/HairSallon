@@ -1,129 +1,23 @@
-<!-- <h1 mat-dialog-title>Add Treatment</h1>
-<div mat-dialog-content>
-    <form>
-        
-        <mat-form-field appearance="fill" style="width: 100%; margin-bottom: 16px;">
-            <mat-label>{{ 'DATE' | translate }}</mat-label>
-            <input matInput [(ngModel)]="treatment.date" [matDatepicker]="picker" name="date" required />
-            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-            <mat-datepicker #picker></mat-datepicker>
-        </mat-form-field>
-
-        
-        <div style="display: flex; gap: 16px; margin-bottom: 16px;">
-            <mat-form-field appearance="fill" style="flex: 2.3;">
-                <mat-label>Job Type</mat-label>
-                <mat-select [(ngModel)]="currentEditedJob.jobType" name="jobType"
-                    (selectionChange)="onJobTypeChange($event.value)" required>
-                    <mat-option *ngFor="let jobType of jobTypes" [value]="jobType.name">
-                        {{ jobType.name }}
-                    </mat-option>
-                </mat-select>
-            </mat-form-field>
-
-            <mat-form-field appearance="fill" style="flex: 1;">
-                <mat-label>Price</mat-label>
-                <input matInput type="number" class="example-right-align" min="1" [(ngModel)]="currentEditedJob.price"
-                    name="jobPrice" />
-                <span matTextPrefix>₪&nbsp;</span>
-            </mat-form-field>
-        </div>
-
-        
-        <div *ngIf="isHairDyeing()">
-            <div *ngFor="let color of currentEditedJob.colors || []; let i = index" class="color-input-group">
-                <mat-form-field appearance="fill" style="width: 40%;">
-                    <mat-label>Color #</mat-label>
-                    <input matInput [(ngModel)]="color.colorNumber" name="colorNumber{{ i }}" />
-                </mat-form-field>
-                <mat-form-field appearance="fill" style="width: 40%;">
-                    <mat-label>Amount</mat-label>
-                    <input matInput type="number" [(ngModel)]="color.colorAmount" name="colorAmount{{ i }}" />
-                    <span matTextPostfix>gr&nbsp;</span>
-                </mat-form-field>
-                <button mat-icon-button (click)="addColorToCurrentJob()">
-                    <mat-icon>add</mat-icon>
-                </button>
-            </div>
-        </div>
-
-        <div style="text-align: right; margin-bottom: 16px;">
-            <button mat-raised-button color="accent" (click)="addJob()" [disabled]="!currentEditedJob.jobType">
-                Add Job
-            </button>
-        </div>
-
-
-        <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" style="margin-top: 16px;">
-            <ng-container matColumnDef="jobType">
-                <th mat-header-cell *matHeaderCellDef> Job </th>
-                <td mat-cell *matCellDef="let job"> {{ job.jobType }}
-                    <br>
-                    <span *ngIf="job.colors && job.colors.length">
-                        <small *ngFor="let color of job.colors">
-                            {{ color.colorNumber }} ({{ color.colorAmount }} grams)
-                        </small>
-                    </span>
-                </td>
-            </ng-container>
-
-            <ng-container matColumnDef="price">
-                <th mat-header-cell *matHeaderCellDef> Price </th>
-                <td mat-cell *matCellDef="let job"><span>{{ job.price }}</span><span matTextPrefix>₪&nbsp;</span></td>
-            </ng-container>
-
-            <ng-container matColumnDef="actions">
-                <th mat-header-cell *matHeaderCellDef> </th>
-                <td mat-cell *matCellDef="let job; let i = index">
-                    <button mat-icon-button (click)="removeJob(i)">
-                        <mat-icon>delete</mat-icon>
-                    </button>
-                </td>
-            </ng-container>
-
-            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-
-            <ng-container matColumnDef="cost">
-                <th mat-header-cell *matHeaderCellDef> Total price </th>
-                <td mat-cell *matCellDef="let transaction"> {{treatment.totalPrice | currency}} </td>
-                <td mat-footer-cell *matFooterCellDef> {{getTotalCost() | currency}} </td>
-            </ng-container>
-
-            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-        </table>
-
-        
-        <div class="footer" style="display: flex; justify-content: flex-end; align-items: center; margin-top: 16px;">
-            <h3 style="margin-right: 16px;">Total Price: {{ treatment.totalPrice }} NIS</h3>
-            <button mat-button (click)="onCancel()">Cancel</button>
-            <button mat-raised-button color="primary" (click)="onSaveTreatment()">Save</button>
-        </div>
-    </form>
-</div> -->
-
 <h1 mat-dialog-title>Add Treatment</h1>
 <div mat-dialog-content>
     <form>
-        <!-- Date Field - First Row -->
         <mat-form-field appearance="fill" style="width: 100%; margin-bottom: 16px;">
             <mat-label>{{ 'DATE' | translate }}</mat-label>
             <input matInput [(ngModel)]="treatment.date" [matDatepicker]="picker" name="date" required />
             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
             <mat-datepicker #picker></mat-datepicker>
         </mat-form-field>
-
-        <!-- Job Type and Price Fields - Second Row -->
         <div style="display: flex; gap: 16px; margin-bottom: 16px;">
             <mat-form-field appearance="fill" style="flex: 7;">
                 <mat-label>Job Type</mat-label>
                 <mat-select [(ngModel)]="currentEditedJob.jobType" name="jobType"
                     (selectionChange)="onJobTypeChange($event.value)" required>
-                    <mat-option *ngFor="let jobType of jobTypes" [value]="jobType.name">
+                    <mat-option *ngFor="let jobType of jobTypes" [value]="jobType.name"
+                        [disabled]="isJobTypeAdded(jobType)">
                         {{ jobType.name }}
                     </mat-option>
                 </mat-select>
             </mat-form-field>
-
             <mat-form-field appearance="fill" style="flex: 3;">
                 <mat-label>Price</mat-label>
                 <input matInput type="number" class="example-right-align" min="1" [(ngModel)]="currentEditedJob.price"
@@ -131,69 +25,30 @@
                 <span matTextPrefix>₪&nbsp;</span>
             </mat-form-field>
         </div>
-
-        <!-- Colors Section -->
         <div *ngIf="isHairDyeing()">
-            <div *ngFor="let color of currentEditedJob.colors || []; let i = index" class="color-input-group">
-                <mat-form-field appearance="fill" style="width: 40%;">
-                    <mat-label>Color #</mat-label>
-                    <input matInput [(ngModel)]="color.colorNumber" name="colorNumber{{ i }}" />
-                </mat-form-field>
-                <mat-form-field appearance="fill" style="width: 40%;">
-                    <mat-label>Amount</mat-label>
-                    <input matInput type="number" [(ngModel)]="color.colorAmount" name="colorAmount{{ i }}" />
-                    <span matTextPostfix>gr&nbsp;</span>
-                </mat-form-field>
-                <button mat-icon-button (click)="addColorToCurrentJob()">
-                    <mat-icon>add</mat-icon>
-                </button>
+            <div *ngFor="let color of currentEditedJob.colors || []; let i = index" class="color-input-group"
+              style="display: flex; align-items: center; margin-bottom: 10px;">
+              <mat-form-field appearance="fill" style="width: 40%; margin-right: 10px;">
+                <mat-label>Color Number</mat-label>
+                <input matInput [(ngModel)]="color.colorNumber" name="colorNumber{{ i }}" />
+              </mat-form-field>
+              <mat-form-field appearance="fill" style="width: 40%; margin-right: 10px;">
+                <mat-label>Amount</mat-label>
+                <input matInput type="number" [(ngModel)]="color.colorAmount" name="colorAmount{{ i }}" />
+                <span matTextSuffix>gr&nbsp;</span>
+              </mat-form-field>
+              <button *ngIf="i === (currentEditedJob.colors?.length ?? 0) - 1" mat-icon-button (click)="addColorToCurrentJob()"
+                [disabled]="!isColorValid()" style="align-self: flex-start;">
+                <mat-icon>add</mat-icon>
+              </button>
             </div>
-        </div>
-
-        <!-- Add Job Button -->
+          </div>
         <div style="text-align: right; margin-bottom: 16px;">
             <button mat-raised-button color="accent" (click)="addJob()" [disabled]="!currentEditedJob.jobType">
                 Add Job
             </button>
         </div>
-
-        <!-- <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" style="margin-top: 16px;">
-            <ng-container matColumnDef="jobType">
-                <th mat-header-cell *matHeaderCellDef> Job </th>
-                <td mat-cell *matCellDef="let job">
-                    {{ job.jobType }}
-                    <br>
-                    <span *ngIf="job.colors && job.colors.length">
-                        <small *ngFor="let color of job.colors">
-                            {{ color.colorNumber }} ({{ color.colorAmount }} grams)
-                        </small>
-                    </span>
-                </td>
-                <td mat-footer-cell *matFooterCellDef> Total Price</td>
-            </ng-container>
-            <ng-container matColumnDef="price">
-                <th mat-header-cell *matHeaderCellDef> Price </th>
-                <td mat-cell *matCellDef="let job">
-                    <span>{{ job.price }}</span>
-                    <span matTextPrefix>₪&nbsp;</span>
-                </td>
-                <td mat-footer-cell *matFooterCellDef>{{treatment.totalPrice}} </td>
-            </ng-container>
-            <ng-container matColumnDef="actions">
-                <th mat-header-cell *matHeaderCellDef> </th>
-                <td mat-cell *matCellDef="let job; let i = index">
-                    <button mat-icon-button (click)="removeJob(i)">
-                        <mat-icon>delete</mat-icon>
-                    </button>
-                </td>
-            </ng-container>
-            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-            <tr mat-footer-row *matFooterRowDef="footerDisplayedColumns"></tr>
-        </table> -->
-
         <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" style="margin-top: 16px; width: 100%;">
-            <!-- Job Type Column (70%) -->
             <ng-container matColumnDef="jobType">
                 <th mat-header-cell *matHeaderCellDef style="width: 70%;"> Job </th>
                 <td mat-cell *matCellDef="let job" style="width: 70%;">
@@ -207,8 +62,6 @@
                 </td>
                 <td mat-footer-cell *matFooterCellDef style="width: 70%;"> Total Price</td>
             </ng-container>
-
-            <!-- Price Column (20%) -->
             <ng-container matColumnDef="price">
                 <th mat-header-cell *matHeaderCellDef style="width: 15%;"> Price </th>
                 <td mat-cell *matCellDef="let job" style="width: 15%;">
@@ -217,25 +70,20 @@
                 </td>
                 <td mat-footer-cell *matFooterCellDef style="width: 15%;">{{ treatment.totalPrice }}</td>
             </ng-container>
-
-            <!-- Actions Column (10%) -->
             <ng-container matColumnDef="actions">
                 <th mat-header-cell *matHeaderCellDef style="width: 15%;"> </th>
                 <td mat-cell *matCellDef="let job; let i = index" style="width: 15%; padding: 0;">
                     <div class="action-container">
-                        <!-- Action button with hover effect -->
                         <button mat-icon-button (click)="removeJob(i)" class="delete-button">
                             <mat-icon>delete</mat-icon>
                         </button>
                     </div>
                 </td>
             </ng-container>
-
             <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
             <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
             <tr mat-footer-row *matFooterRowDef="footerDisplayedColumns"></tr>
         </table>
-
         <div class="footer" style="display: flex; justify-content: flex-end; align-items: center; margin-top: 16px;">
             <button mat-button (click)="onCancel()">Cancel</button>
             <button mat-raised-button color="primary" (click)="onSaveTreatment()">Save</button>
