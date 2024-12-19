@@ -9,13 +9,15 @@ import { MsalGuard, MsalRedirectComponent } from '@azure/msal-angular'; // Impor
 //   { path: 'redirect', component: MsalRedirectComponent }, 
 // ];
 
-const routes: Routes = [
-  {
-    path: '',
-    component: AppComponent,
-    canActivate: [MsalGuard]
-  }
-];
+// const routes: Routes = [
+//   {
+//     path: '',
+//     component: AppComponent,
+//     canActivate: [MsalGuard]
+//   }
+// ];
+
+const routes: Routes = [];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

@@ -25,24 +25,12 @@
                 <span matTextPrefix>₪&nbsp;</span>
             </mat-form-field>
         </div>
-        <div *ngIf="isHairDyeing()">
-            <div *ngFor="let color of currentEditedJob.colors || []; let i = index" class="color-input-group"
-              style="display: flex; align-items: center; margin-bottom: 10px;">
-              <mat-form-field appearance="fill" style="width: 40%; margin-right: 10px;">
-                <mat-label>Color Number</mat-label>
-                <input matInput [(ngModel)]="color.colorNumber" name="colorNumber{{ i }}" />
-              </mat-form-field>
-              <mat-form-field appearance="fill" style="width: 40%; margin-right: 10px;">
-                <mat-label>Amount</mat-label>
-                <input matInput type="number" [(ngModel)]="color.colorAmount" name="colorAmount{{ i }}" />
-                <span matTextSuffix>gr&nbsp;</span>
-              </mat-form-field>
-              <button *ngIf="i === (currentEditedJob.colors?.length ?? 0) - 1" mat-icon-button (click)="addColorToCurrentJob()"
-                [disabled]="!isColorValid()" style="align-self: flex-start;">
-                <mat-icon>add</mat-icon>
-              </button>
-            </div>
-          </div>
+        <mat-form-field style="width:100%; margin-bottom: 16px;">
+            <mat-label>Add description</mat-label>
+            <textarea matInput [(ngModel)]="currentEditedJob.description" name="description"
+            placeholder="Ex. 70(40gr) + 7.1(40gr) + 6% Bleach 6% גוונים"></textarea>
+        </mat-form-field>
+
         <div style="text-align: right; margin-bottom: 16px;">
             <button mat-raised-button color="accent" (click)="addJob()" [disabled]="!currentEditedJob.jobType">
                 Add Job
@@ -53,10 +41,15 @@
                 <th mat-header-cell *matHeaderCellDef style="width: 70%;"> Job </th>
                 <td mat-cell *matCellDef="let job" style="width: 70%;">
                     {{ job.jobType }}
-                    <br />
-                    <span *ngIf="job.colors && job.colors.length">
+                    <br/>
+                    <!--<span *ngIf="job.colors && job.colors.length">
                         <small *ngFor="let color of job.colors">
                             {{ color.colorNumber }} ({{ color.colorAmount }} grams)
+                        </small>
+                    </span> -->
+                    <span *ngIf="job.description">
+                        <small>
+                            {{ job.description }}
                         </small>
                     </span>
                 </td>
@@ -90,3 +83,22 @@
         </div>
     </form>
 </div>
+
+ <!-- <div *ngIf="isHairDyeing()">
+            <div *ngFor="let color of currentEditedJob.colors || []; let i = index" class="color-input-group"
+                style="display: flex; align-items: center; margin-bottom: 10px;">
+                <mat-form-field appearance="fill" style="width: 40%; margin-right: 10px;">
+                    <mat-label>Color Number</mat-label>
+                    <input matInput [(ngModel)]="color.colorNumber" name="colorNumber{{ i }}" />
+                </mat-form-field>
+                <mat-form-field appearance="fill" style="width: 40%; margin-right: 10px;">
+                    <mat-label>Amount</mat-label>
+                    <input matInput type="number" [(ngModel)]="color.colorAmount" name="colorAmount{{ i }}" />
+                    <span matTextSuffix>gr&nbsp;</span>
+                </mat-form-field>
+                <button *ngIf="i === (currentEditedJob.colors?.length ?? 0) - 1" mat-icon-button
+                    (click)="addColorToCurrentJob()" [disabled]="!isColorValid()" style="align-self: flex-start;">
+                    <mat-icon>add</mat-icon>
+                </button>
+            </div>
+        </div> -->

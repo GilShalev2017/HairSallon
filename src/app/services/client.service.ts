@@ -1,8 +1,9 @@
-import { Injectable } from '@angular/core';
+import { Injectable, NgZone } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Client, Treatment } from '../models/models';
+import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition } from '@angular/material/snack-bar';
 
 @Injectable({
   providedIn: 'root'
@@ -10,8 +11,23 @@ import { Client, Treatment } from '../models/models';
 export class ClientService {
 
   private apiUrl = environment.apiUrl;
-  
-  constructor(private http: HttpClient) {}
+
+  durationInSeconds = 5000;
+  horizontalPosition: MatSnackBarHorizontalPosition = 'center';
+  verticalPosition: MatSnackBarVerticalPosition = 'top';
+
+  constructor(private http: HttpClient, private snackBar: MatSnackBar, private zone: NgZone) { }
+
+  openSnackBar(message: string, action: string = 'close') {
+    this.snackBar.open(message,
+      action,
+      {
+        duration: this.durationInSeconds * 1000,
+        horizontalPosition: this.horizontalPosition,
+        verticalPosition: this.verticalPosition
+      }
+    );
+  }
 
   getData() {
     return this.http.get(`${this.apiUrl}/data`);
@@ -33,7 +49,7 @@ export class ClientService {
     return this.http.get<Client[]>(`${this.apiUrl}/clients?${params.toString()}`);
   }
 
-  getAllClients() : Observable<Client[]> {
+  getAllClients(): Observable<Client[]> {
     return this.http.get<Client[]>(`${this.apiUrl}/clients`);
   }
 

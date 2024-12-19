@@ -151,15 +151,19 @@
  }
 
  .search-bar {
-  display: flex;
-  align-items: center;
-}
+   display: flex;
+   align-items: center;
+ }
 
-.search-control {
-  width: 200px;
-  margin-right: 10px;
-}
+ .search-control {
+   width: 200px;
+   margin-right: 10px;
+ }
 
-.search-button {
-  margin-left: 10px;
-}
+ .search-button {
+   margin-left: 10px;
+ }
+
+ .mat-snack-bar-container {
+   min-width: auto !important;
+ }

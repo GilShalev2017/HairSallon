@@ -1,13 +1,16 @@
 export enum JobType {
   ManHairCut = 'Man Hair Cut',
   ChildHairCut = 'Child Hair Cut',
+  WomanFaceFrame = 'W Face Frame',
   WomanHairCutShort = 'W Hair Cut - Short',
   WomanHairCutLong = 'W Hair Cut - Long',
   HairDyeing = 'Hair Dyeing',
   HighlightsFull = 'Highlights - Full',
   HighlightsHalf = 'Highlights - Half',
   HairStraighteningFull = 'Hair Relax - Full',//Straightening
-  HairStraighteningRoot = 'Hair Relax - Root'
+  HairStraighteningRoot = 'Hair Relax - Root',
+  BlowDry = 'Blow-Dry',
+  Hairstyle = 'Hairstyle'
 }
 
 export interface JobTypeItem{
@@ -24,6 +27,7 @@ export interface Treatment {
 
 export interface Job {
   price: number;
+  description?: string;
   jobType: string;
   colors?: Color[];
 }

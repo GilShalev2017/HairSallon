@@ -1,4 +1,4 @@
-import { Component, HostListener, OnInit, ViewChild } from '@angular/core';
+import { Component, HostListener, inject, OnInit, ViewChild } from '@angular/core';
 import { Client, Treatment } from '../models/models';
 import { ClientService } from '../services/client.service';
 import { ClientFormComponent } from '../client-form/client-form.component';
@@ -9,6 +9,7 @@ import { MatSort } from '@angular/material/sort';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { AddTreatmentComponent } from '../add-treatment/add-treatment.component';
 import { TranslateService } from '@ngx-translate/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-client-list',
@@ -92,6 +93,8 @@ export class ClientListComponent implements OnInit {
       if (newClient) {
         // Handle the newly created client result
         console.log('New client:', newClient);
+
+        this.clientService.openSnackBar(`Client ${newClient.firstName} ${newClient.lastName} Successfuly created!`, 'close');
 
         this.clientService.addClient(newClient).subscribe({
           next: (response) => {
