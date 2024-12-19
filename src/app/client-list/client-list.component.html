@@ -120,11 +120,11 @@
 <div *ngIf="isMobile" class="mobile-view">
   <div *ngIf="filteredClients.length > 0; else noResults">
     <div *ngFor="let client of filteredClients" class="client-card">
-      <div class="client-header" style="display: flex; flex-direction: row; align-items: center">
-        <p><strong>{{'FIRST_NAME' | translate}}: </strong> <span style="font-size: 16px;">{{ client.firstName }}</span>
-        </p>
-        <p><strong>{{'LAST_NAME' | translate}}: </strong> <span style="font-size: 16px;">{{ client.lastName }}</span>
-        </p>
+      <div class="client-header" style="display: flex; flex-direction: row; align-items: center; max-width: 370px;">
+        <span><strong>{{'FIRST_NAME' | translate}}: </strong> <span style="font-size: 16px;">{{ client.firstName }}</span>
+        </span>
+        <span><strong>{{'LAST_NAME' | translate}}: </strong> <span style="font-size: 16px;">{{ client.lastName }}</span>
+        </span>
         <button mat-icon-button style="color:green; margin-right: -15px;" (click)="editClient(client)">
           <mat-icon>face</mat-icon>
         </button>
