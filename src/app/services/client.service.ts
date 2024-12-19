@@ -60,4 +60,8 @@ export class ClientService {
   deleteClient(clientId: string): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/clients/${clientId}`);
   }
+
+  isDuplicateClientByPhone(phone: string) : Observable<any> {
+    return this.http.get<boolean>(`${this.apiUrl}/clients/check-duplicate?phone=${phone}`);
+  }
 }

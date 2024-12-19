@@ -1,6 +1,6 @@
-<h1 mat-dialog-title>{{'ADD_NEW_CLIENT' | translate}}</h1>
+<!-- <h1 mat-dialog-title>{{'ADD_NEW_CLIENT' | translate}}</h1>
 <div mat-dialog-content>
-  <form #clientForm="ngForm">
+   <form #clientForm="ngForm">
     <mat-form-field>
       <mat-label>{{'FIRST_NAME' | translate}}</mat-label>
       <input matInput [(ngModel)]="client.firstName" name="firstName" required />
@@ -24,10 +24,11 @@
     </mat-form-field>
     <mat-form-field>
       <mat-label>{{'PHONE' | translate}}</mat-label>
-      <input matInput [(ngModel)]="client.phone" name="phone" required />
+      <input matInput [(ngModel)]="client.phone" name="phone" required (blur)="checkDuplicatePhone()" />
       <button *ngIf="client.phone" mat-icon-button matSuffix (click)="clearField('phone')">
         <mat-icon>clear</mat-icon>
       </button>
+      <mat-error *ngIf="duplicateError">{{ duplicateError }}</mat-error>
     </mat-form-field>
     <mat-form-field>
       <mat-label>{{'EMAIL' | translate}}</mat-label>
@@ -53,6 +54,68 @@
 </div>
 <div mat-dialog-actions style="display: flex; justify-content: flex-end; margin-right: 10px;">
   <button mat-stroked-button (click)="onCancel()">{{'CANCEL' | translate}}</button>
-  <button mat-raised-button color="primary" [disabled]="!clientForm.form.valid" (click)="onSave()">{{'SAVE' |
-    translate}}</button>
+  <button mat-raised-button color="primary" [disabled]="duplicateError || !clientForm.form.valid"
+    (click)="onSave()">{{'SAVE' | translate}}</button>
+</div> -->
+
+
+<h1 mat-dialog-title>{{ 'ADD_NEW_CLIENT' | translate }}</h1>
+<div mat-dialog-content>
+  <form [formGroup]="clientForm">
+    <mat-form-field>
+      <mat-label>{{ 'FIRST_NAME' | translate }}</mat-label>
+      <input matInput formControlName="firstName" (focus)="setFocus('firstName')" />
+      <button *ngIf="clientForm.get('firstName')?.value && focusedControl === 'firstName'" mat-icon-button matSuffix (click)="clientForm.get('firstName')?.reset()">
+        <mat-icon>clear</mat-icon>
+      </button>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>{{ 'LAST_NAME' | translate }}</mat-label>
+      <input matInput formControlName="lastName" (focus)="setFocus('lastName')"/>
+      <button *ngIf="clientForm.get('lastName')?.value && focusedControl === 'lastName'" mat-icon-button matSuffix (click)="clientForm.get('lastName')?.reset()">
+        <mat-icon>clear</mat-icon>
+      </button>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>{{ 'COMMENT' | translate }}</mat-label>
+      <input matInput formControlName="comment" (focus)="setFocus('comment')"/>
+      <button *ngIf="clientForm.get('comment')?.value && focusedControl === 'comment'" mat-icon-button matSuffix (click)="clientForm.get('comment')?.reset()">
+        <mat-icon>clear</mat-icon>
+      </button>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>{{ 'PHONE' | translate }}</mat-label>
+      <input matInput formControlName="phone" (blur)="checkDuplicatePhone()" (focus)="setFocus('phone')"/>
+      <button *ngIf="clientForm.get('phone')?.value && focusedControl === 'phone'" mat-icon-button matSuffix (click)="clientForm.get('phone')?.reset()">
+        <mat-icon>clear</mat-icon>
+      </button>
+      <mat-error *ngIf="duplicateError">{{ duplicateError }}</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>{{ 'EMAIL' | translate }}</mat-label>
+      <input matInput formControlName="email" type="email" placeholder="pat@example.com" (focus)="setFocus('email')"/>
+      <button *ngIf="clientForm.get('email')?.value && focusedControl === 'email'" mat-icon-button matSuffix (click)="clientForm.get('email')?.reset()">
+        <mat-icon>clear</mat-icon>
+      </button>
+      <mat-error *ngIf="clientForm.get('email')?.invalid && (clientForm.get('email')?.dirty || clientForm.get('email')?.touched)">
+        Please enter a valid email address.
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>{{ 'ADDRESS' | translate }}</mat-label>
+      <input matInput formControlName="address" (focus)="setFocus('address')"/>
+      <button *ngIf="clientForm.get('address')?.value && focusedControl === 'address'" mat-icon-button matSuffix (click)="clientForm.get('address')?.reset()">
+        <mat-icon>clear</mat-icon>
+      </button>
+    </mat-form-field>
+  </form>
+</div>
+<div mat-dialog-actions style="display: flex; justify-content: flex-end; margin-right: 10px;">
+  <button mat-stroked-button (click)="onCancel()">{{ 'CANCEL' | translate }}</button>
+  <button mat-raised-button color="primary" [disabled]="duplicateError || !clientForm.valid" (click)="onSave()">{{ 'SAVE' | translate }}</button>
 </div>
