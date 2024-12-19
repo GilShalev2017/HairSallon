@@ -44,6 +44,9 @@ export class ClientListComponent implements OnInit {
   isMobile: boolean = window.innerWidth <= 600;
   columnTranslations: { [key: string]: string } = {};
 
+  treatmentDisplayedColumns = ['jobType', 'price'];
+  treatmentFooterDisplayedColumns = ['jobType', 'price'];
+
   constructor(private clientService: ClientService, private dialog: MatDialog,
     private translateService: TranslateService
   ) {

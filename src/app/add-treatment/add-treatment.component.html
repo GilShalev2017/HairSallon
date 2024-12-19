@@ -42,11 +42,6 @@
                 <td mat-cell *matCellDef="let job" style="width: 70%;">
                     {{ job.jobType }}
                     <br/>
-                    <!--<span *ngIf="job.colors && job.colors.length">
-                        <small *ngFor="let color of job.colors">
-                            {{ color.colorNumber }} ({{ color.colorAmount }} grams)
-                        </small>
-                    </span> -->
                     <span *ngIf="job.description">
                         <small>
                             {{ job.description }}
@@ -102,3 +97,9 @@
                 </button>
             </div>
         </div> -->
+
+          <!--<span *ngIf="job.colors && job.colors.length">
+                        <small *ngFor="let color of job.colors">
+                            {{ color.colorNumber }} ({{ color.colorAmount }} grams)
+                        </small>
+                    </span> -->
