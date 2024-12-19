@@ -25,5 +25,7 @@
     },
     "ACTIONS": "Actions",
     "COMMENT": "Comment",
-    "ADDRESS": "Address"
+    "ADDRESS": "Address",
+    "SEARCH_BY_NAME": "Search By Name",
+    "ENTER_NAME": "Enter Name"
 }

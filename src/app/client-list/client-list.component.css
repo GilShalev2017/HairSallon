@@ -46,6 +46,7 @@
 
  .search-bar,
  .actions {
+   width:100%;
    display: flex;
    flex-wrap: wrap;
    gap: 8px;
@@ -57,11 +58,6 @@
  .actions button {
    flex: 1 1 auto;
  }
-
- /* .actions {
-   margin-left: 10px;
- } */
-
 
  /* Mobile View */
  .responsive-table {
@@ -87,15 +83,6 @@
      padding: 4px;
    }
  }
-
- /* @media screen and (max-width: 375px) {
-   .search-bar input {
-     font-size: 12px;
-   }
-   .actions button {
-     font-size: 12px;
-   }
- } */
 
  .client-card {
    border: 1px solid #ccc;
@@ -152,7 +139,7 @@
 
  .search-bar {
    display: flex;
-   align-items: center;
+   /* align-items: center; */
  }
 
  .search-control {
@@ -166,4 +153,22 @@
 
  .mat-snack-bar-container {
    min-width: auto !important;
+ }
+
+
+ .search-field {
+   display: flex;
+   /* align-items: center; */
+ }
+
+ .search-field input {
+   flex: 1;
+   margin-right: 8px;
+ }
+
+ .add-client-button {
+   position: fixed;
+   top: 16px;
+   /* bottom:16px; */
+   right: 16px;
  }

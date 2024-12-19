@@ -22,6 +22,13 @@ export class AppComponent /*implements OnInit */{
     this.translate.setDefaultLang('en');
   }
 
+  languages = [
+    { code: 'en', flag: 'us', name: 'English' },
+    { code: 'es', flag: 'es', name: 'Español' },
+    { code: 'he', flag: 'il', name: 'Hebrew' },
+    // Add more languages as needed
+  ];
+  
   changeLanguage(lang: string): void {
     this.translate.use(lang);
     const newLocale = lang === 'he' ? 'he-IL' : 'en-US';

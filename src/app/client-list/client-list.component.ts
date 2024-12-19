@@ -30,22 +30,18 @@ export class ClientListComponent implements OnInit {
   search = { firstName: '', lastName: '' };
   dataSource = new MatTableDataSource<Client>([]);
   pageSizeOptions = [5, 10, 25];
-
   columnsToDisplay = ['firstName', 'lastName', 'phone', 'email'];
   columnsToDisplayWithExpand = [...this.columnsToDisplay, 'expand'];
   expandedElement: Client | null = null;
-
   treatmentColumns: string[] = ['date', 'description', 'price'];
   filteredClients: Client[] = [];
-
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
-
   isMobile: boolean = window.innerWidth <= 600;
   columnTranslations: { [key: string]: string } = {};
-
   treatmentDisplayedColumns = ['jobType', 'price'];
   treatmentFooterDisplayedColumns = ['jobType', 'price'];
+  searchQuery: string = '';
 
   constructor(private clientService: ClientService, private dialog: MatDialog,
     private translateService: TranslateService
@@ -76,16 +72,26 @@ export class ClientListComponent implements OnInit {
     });
   }
 
+  // searchClients(): void {
+  //   this.clientService
+  //     .searchClients(this.search.firstName, this.search.lastName)
+  //     .subscribe((result) => {
+  //       this.dataSource.data = result.map(client => ({
+  //         ...client,
+  //         treatments: client.treatments || [] // Default to an empty array if undefined
+  //       }));
+  //       this.filteredClients = this.dataSource.data;
+  //     });
+  // }
+
   searchClients(): void {
-    this.clientService
-      .searchClients(this.search.firstName, this.search.lastName)
-      .subscribe((result) => {
-        this.dataSource.data = result.map(client => ({
-          ...client,
-          treatments: client.treatments || [] // Default to an empty array if undefined
-        }));
-        this.filteredClients = this.dataSource.data;
-      });
+    this.clientService.searchClients(this.searchQuery).subscribe((result) => {
+      this.dataSource.data = result.map(client => ({
+        ...client,
+        treatments: client.treatments || []
+      }));
+      this.filteredClients = this.dataSource.data;
+    });
   }
 
   openCreateClientDialog() {
