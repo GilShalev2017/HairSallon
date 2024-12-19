@@ -42,6 +42,7 @@ export class ClientListComponent implements OnInit {
   treatmentDisplayedColumns = ['jobType', 'price'];
   treatmentFooterDisplayedColumns = ['jobType', 'price'];
   searchQuery: string = '';
+  hasSearched = false;
 
   constructor(private clientService: ClientService, private dialog: MatDialog,
     private translateService: TranslateService
@@ -85,6 +86,7 @@ export class ClientListComponent implements OnInit {
   // }
 
   searchClients(): void {
+    this.hasSearched = true;
     this.clientService.searchClients(this.searchQuery).subscribe((result) => {
       this.dataSource.data = result.map(client => ({
         ...client,
@@ -178,7 +180,7 @@ export class ClientListComponent implements OnInit {
 
   openAddTreatmentDialog(client: Client): void {
     const dialogRef = this.dialog.open(AddTreatmentComponent, {
-      width: '400px',
+      width: '550px',
       data: client,
     });
 

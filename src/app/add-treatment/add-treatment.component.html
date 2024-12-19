@@ -1,14 +1,15 @@
 <h1 mat-dialog-title>Add Treatment</h1>
 <div mat-dialog-content>
     <form>
-        <mat-form-field appearance="fill" style="width: 100%; margin-bottom: 16px;">
+        <br>
+        <mat-form-field appearance="outline" style="width: 100%; margin-bottom: 16px;">
             <mat-label>{{ 'DATE' | translate }}</mat-label>
             <input matInput [(ngModel)]="treatment.date" [matDatepicker]="picker" name="date" required />
             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
             <mat-datepicker #picker></mat-datepicker>
         </mat-form-field>
         <div style="display: flex; gap: 16px; margin-bottom: 16px;">
-            <mat-form-field appearance="fill" style="flex: 7;">
+            <mat-form-field appearance="outline" style="flex: 6;">
                 <mat-label>Job Type</mat-label>
                 <mat-select [(ngModel)]="currentEditedJob.jobType" name="jobType"
                     (selectionChange)="onJobTypeChange($event.value)" required>
@@ -18,14 +19,14 @@
                     </mat-option>
                 </mat-select>
             </mat-form-field>
-            <mat-form-field appearance="fill" style="flex: 3;">
+            <mat-form-field appearance="outline" style="flex: 3;">
                 <mat-label>Price</mat-label>
                 <input matInput type="number" class="example-right-align" min="1" [(ngModel)]="currentEditedJob.price"
                     name="jobPrice" />
                 <span matTextPrefix>₪&nbsp;</span>
             </mat-form-field>
         </div>
-        <mat-form-field style="width:100%; margin-bottom: 16px;">
+        <mat-form-field appearance="outline" style="width:100%; margin-bottom: 16px;">
             <mat-label>Add description</mat-label>
             <textarea matInput [(ngModel)]="currentEditedJob.description" name="description"
             placeholder="Ex. 70(40gr) + 7.1(40gr) + 6% Bleach 6% גוונים"></textarea>

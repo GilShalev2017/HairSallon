@@ -46,7 +46,7 @@
 
  .search-bar,
  .actions {
-   width:100%;
+   width: 100%;
    display: flex;
    flex-wrap: wrap;
    gap: 8px;
@@ -172,3 +172,31 @@
    /* bottom:16px; */
    right: 16px;
  }
+
+ .no-results-container {
+   margin: 0;
+   padding: 0;
+   font-size: 14px;
+   color: #888;
+ }
+
+ .client-header {
+  display: flex;
+  justify-content: space-between; /* Align text and buttons on opposite sides */
+  align-items: flex-start; /* Align items to the top */
+  max-width: 370px;
+}
+
+.client-info {
+  display: flex;
+  flex-direction: column; /* Stack the first name and last name vertically */
+  gap: 8px; /* Increase the gap between the two text rows */
+}
+
+.client-actions {
+  display: flex;
+  margin-right: -12px;
+  margin-top: -12px;
+  align-items: center; /* Keep the icons aligned with the first text line */
+  gap: 8px; /* Adds space between the buttons */
+}

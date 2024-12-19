@@ -1,5 +1,5 @@
 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
- 
+
   <div class="search-bar" *ngIf="!isMobile">
     <input matInput type="text" [(ngModel)]="search.firstName" placeholder="{{ 'SEARCH_BY_FIRST_NAME' | translate}}"
       class="search-control">
@@ -10,39 +10,17 @@
   </div>
 
 
+  <!-- <div class="search-bar" *ngIf="isMobile"> -->
   <div class="search-bar" *ngIf="isMobile">
-    <!-- <mat-form-field appearance="outline" class="search-field">
-      <mat-label>Search</mat-label>
-      <input matInput placeholder="First Name" [(ngModel)]="search.firstName">
-      <input matInput placeholder="Last Name" [(ngModel)]="search.lastName">
+    <mat-form-field appearance="outline" class="search-field" style="width: 100%;">
+      <mat-label>{{ 'SEARCH_BY_NAME' | translate }}</mat-label>
+      <input matInput placeholder="{{ 'ENTER_NAME' | translate }}" [(ngModel)]="searchQuery">
       <button mat-icon-button matSuffix (click)="searchClients()">
         <mat-icon>search</mat-icon>
       </button>
     </mat-form-field>
-
-    <div class="search-bar" *ngIf="isMobile" style="display: flex; align-items: center;">
-      <mat-form-field appearance="outline" class="search-field" style="flex: 1; margin-right: 8px;">
-        <mat-label>First Name</mat-label>
-        <input matInput placeholder="First Name" [(ngModel)]="search.firstName">
-      </mat-form-field>
-      <mat-form-field appearance="outline" class="search-field" style="flex: 1; margin-right: 8px;">
-        <mat-label>Last Name</mat-label>
-        <input matInput placeholder="Last Name" [(ngModel)]="search.lastName">
-      </mat-form-field>
-      <button mat-icon-button (click)="searchClients()">
-        <mat-icon>search</mat-icon>
-      </button>
-    </div> -->
-    <div class="search-bar" *ngIf="isMobile">
-      <mat-form-field appearance="outline" class="search-field" style="width: 100%;">
-        <mat-label>{{ 'SEARCH_BY_NAME' | translate }}</mat-label>
-        <input matInput placeholder="{{ 'ENTER_NAME' | translate }}" [(ngModel)]="searchQuery">
-        <button mat-icon-button matSuffix (click)="searchClients()">
-          <mat-icon>search</mat-icon>
-        </button>
-      </mat-form-field>
-    </div>
   </div>
+  <!-- </div> -->
   <button mat-fab color="accent" class="add-client-button" (click)="openCreateClientDialog()">
     <mat-icon>add</mat-icon>
   </button>
@@ -50,7 +28,7 @@
 
 <div *ngIf="!isMobile">
   <table mat-table [dataSource]="dataSource" multiTemplateDataRows class="mat-elevation-z8 responsive-table">
-    
+
     <ng-container *ngFor="let column of columnsToDisplay">
       <ng-container matColumnDef="{{column}}">
         <th mat-header-cell *matHeaderCellDef> {{ columnTranslations[column] || column | translate }} </th>
@@ -120,8 +98,9 @@
 <div *ngIf="isMobile" class="mobile-view">
   <div *ngIf="filteredClients.length > 0; else noResults">
     <div *ngFor="let client of filteredClients" class="client-card">
-      <div class="client-header" style="display: flex; flex-direction: row; align-items: center; max-width: 370px;">
-        <span><strong>{{'FIRST_NAME' | translate}}: </strong> <span style="font-size: 16px;">{{ client.firstName }}</span>
+      <!-- <div class="client-header" style="display: flex; flex-direction: row; align-items: center; max-width: 370px;">
+        <span><strong>{{'FIRST_NAME' | translate}}: </strong> <span style="font-size: 16px;">{{ client.firstName
+            }}</span>
         </span>
         <span><strong>{{'LAST_NAME' | translate}}: </strong> <span style="font-size: 16px;">{{ client.lastName }}</span>
         </span>
@@ -133,6 +112,29 @@
         </button>
       </div>
       <div class="actions">
+        <button mat-raised-button color="primary" (click)="openAddTreatmentDialog(client)">
+          {{ 'ADD_TREATMENT' | translate}}
+        </button>
+      </div> -->
+      <div class="client-header">
+        <div class="client-info">
+          <span><strong>{{'FIRST_NAME' | translate}}: </strong> 
+            <span style="font-size: 16px;">{{ client.firstName }}</span>
+          </span>
+          <span><strong>{{'LAST_NAME' | translate}}: </strong> 
+            <span style="font-size: 16px;">{{ client.lastName }}</span>
+          </span>
+        </div>
+        <div class="client-actions">
+          <button mat-icon-button style="color:green; margin-right: -15px;" (click)="editClient(client)">
+            <mat-icon>face</mat-icon>
+          </button>
+          <button mat-icon-button color="warn" (click)="deleteClient(client)">
+            <mat-icon>delete_forever</mat-icon>
+          </button>
+        </div>
+      </div>
+      <div class="actions" style="margin-top: 8px;">
         <button mat-raised-button color="primary" (click)="openAddTreatmentDialog(client)">
           {{ 'ADD_TREATMENT' | translate}}
         </button>
@@ -171,8 +173,7 @@
       </div>
     </div>
   </div>
-
-  <ng-template #noResults>
-    <p>{{'NO_CLIENTS_FOUND_ADJUST_YOUR_SEARCH_AND_TRY_AGAIN' | translate}}</p>
+  <ng-template #noResults class="no-results-container">
+    <p *ngIf="hasSearched">{{'NO_CLIENTS_FOUND_ADJUST_YOUR_SEARCH_AND_TRY_AGAIN' | translate}}</p>
   </ng-template>
 </div>
