@@ -30,7 +30,6 @@
             <textarea matInput [(ngModel)]="currentEditedJob.description" name="description"
             placeholder="Ex. 70(40gr) + 7.1(40gr) + 6% Bleach 6% גוונים"></textarea>
         </mat-form-field>
-
         <div style="text-align: right; margin-bottom: 16px;">
             <button mat-raised-button color="accent" (click)="addJob()" [disabled]="!currentEditedJob.jobType">
                 Add Job
