@@ -1,0 +1,43 @@
+/* confirm-dialog.component.css */
+
+/* Style for the dialog title */
+.mat-dialog-title {
+    background-color: #E60000;
+    color: white;
+    padding: 16px;
+    font-size: 20px;
+}
+
+/* Style for the dialog content */
+.mat-dialog-content {
+    padding: 24px;
+    font-size: 16px;
+}
+
+/* Style for the dialog actions */
+.mat-dialog-actions {
+    padding: 8px 24px;
+    display: flex;
+    justify-content: flex-end;
+}
+
+/* Style for the action buttons */
+.mat-dialog-actions button {
+    margin-left: 8px;
+}
+
+
+:host {
+    display: block;
+    background: #fff;
+    border-radius: 8px;
+    padding: 8px 16px 16px;
+}
+
+input {
+    margin: 8px 0;
+}
+
+button+button {
+    margin-left: 8px;
+}

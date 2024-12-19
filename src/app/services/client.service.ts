@@ -18,7 +18,7 @@ export class ClientService {
 
   constructor(private http: HttpClient, private snackBar: MatSnackBar, private zone: NgZone) { }
 
-  openSnackBar(message: string, action: string = 'close') {
+  showMessage(message: string, action: string = 'close') {
     this.snackBar.open(message,
       action,
       {
@@ -35,6 +35,10 @@ export class ClientService {
 
   addClient(client: Client): Observable<Client> {
     return this.http.post<Client>(`${this.apiUrl}/clients`, client);
+  }
+
+  updateClient(client: Client): Observable<Client> {
+    return this.http.put<Client>(`${this.apiUrl}/clients/${client._id}`, client);
   }
 
   addTreatment(clientId: string, treatment: Treatment): Observable<Client> {

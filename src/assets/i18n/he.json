@@ -8,6 +8,7 @@
   "SEARCH_BY_LAST_NAME": "חפש לפי שם משפחה",
   "SEARCH": "חפש",
   "ADD_NEW_CLIENT": "הוסף לקוח חדש",
+  "ADD_CLIENT": "הוסף לקוח ",
   "REFRESH": "רענן",
   "FIRST_NAME": "שם פרטי",
   "LAST_NAME": "שם משפחה",
@@ -22,5 +23,7 @@
     "PHONE": "טלפון",
     "EMAIL": "דואר אלקטרוני"
   },
-  "ACTIONS": "פעולות"
+  "ACTIONS": "פעולות",
+  "COMMENT": "הערה",
+  "ADDRESS": "כתובת"
 }

@@ -9,7 +9,8 @@ import { MatSort } from '@angular/material/sort';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { AddTreatmentComponent } from '../add-treatment/add-treatment.component';
 import { TranslateService } from '@ngx-translate/core';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
+import { map, Observable } from 'rxjs';
 
 @Component({
   selector: 'app-client-list',
@@ -86,38 +87,80 @@ export class ClientListComponent implements OnInit {
 
   openCreateClientDialog() {
     const dialogRef = this.dialog.open(ClientFormComponent, {
-      width: '400px',
+      width: '300px',
     });
 
     dialogRef.afterClosed().subscribe(newClient => {
       if (newClient) {
-        // Handle the newly created client result
-        console.log('New client:', newClient);
-
-        this.clientService.openSnackBar(`Client ${newClient.firstName} ${newClient.lastName} Successfuly created!`, 'close');
-
         this.clientService.addClient(newClient).subscribe({
           next: (response) => {
             console.log('Client added:', response);
             this.getAllClients();
+            this.filteredClients = this.dataSource.data;
+            this.clientService.showMessage(`Client '${newClient.firstName} ${newClient.lastName}' Successfuly created!`, 'close');
           },
-          error: (err) => console.error('Error adding client:', err),
+          error: (err) => {
+            console.error('Error adding client:', err),
+              this.clientService.showMessage(`Client '${newClient.firstName} ${newClient.lastName}' Failed to create!`, 'close');
+          }
         });
-
       }
     });
   }
 
+  openConfirmDialog(message: string): Observable<boolean> {
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      width: '350px',
+      data: { title: 'Confirm Action', message: message },
+    });
+
+    return dialogRef.afterClosed().pipe(
+      map(result => !!result) // Converts the result to a boolean
+    );
+  }
+
   deleteClient(client: Client): void {
-    if (confirm(`Are you sure you want to delete ${client.firstName} ${client.lastName}?`)) {
-      this.clientService.deleteClient(client._id!).subscribe({
-        next: () => {
-          console.log('Client removed:', client);
-          this.getAllClients();
-        },
-        error: (err) => console.error('Error removing client:', err),
-      });
-    }
+    const message = `Are you sure you want to delete '${client.firstName} ${client.lastName}' ?`;
+    this.openConfirmDialog(message).subscribe({
+      next: (confirmed) => {
+        if (confirmed) {
+          this.clientService.deleteClient(client._id!).subscribe({
+            next: () => {
+              console.log('Client removed:', client);
+              this.getAllClients();
+              this.filteredClients = this.dataSource.data;
+              this.clientService.showMessage(`Client removed: ${client.firstName} ${client.lastName}`);
+            },
+            error: (err) => console.error('Error removing client:', err),
+          });
+        }
+      },
+      error: (err) => console.error('Error with confirmation dialog:', err),
+    });
+  }
+
+  editClient(client: Client): void {
+    const dialogRef = this.dialog.open(ClientFormComponent, {
+      width: '300px',
+      data: client,
+    });
+
+    dialogRef.afterClosed().subscribe(updatedClient => {
+      if (updatedClient) {
+        this.clientService.updateClient(updatedClient).subscribe({
+          next: (response) => {
+            console.log('Client added:', response);
+            this.getAllClients();
+            this.filteredClients = this.dataSource.data;
+            this.clientService.showMessage(`Client '${updatedClient.firstName} ${updatedClient.lastName}' Successfuly updated!`, 'close');
+          },
+          error: (err) => {
+            console.error('Error adding client:', err),
+              this.clientService.showMessage(`Client '${updatedClient.firstName} ${updatedClient.lastName}' Failed to update!`, 'close');
+          }
+        });
+      }
+    });
   }
 
   refresh() {

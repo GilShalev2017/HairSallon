@@ -8,6 +8,7 @@
     "SEARCH_BY_LAST_NAME": "Search by Last Name",
     "SEARCH": "Search",
     "ADD_NEW_CLIENT": "Add New Client",
+    "ADD_CLIENT": "Add Client",
     "REFRESH": "Refresh",
     "FIRST_NAME": "First Name",
     "LAST_NAME": "Last Name",
@@ -22,5 +23,7 @@
         "PHONE": "Phone",
         "EMAIL": "Email"
     },
-    "ACTIONS": "Actions"
+    "ACTIONS": "Actions",
+    "COMMENT": "Comment",
+    "ADDRESS": "Address"
 }

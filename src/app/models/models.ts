@@ -43,5 +43,7 @@ export interface Client {
   lastName: string;
   phone: string;
   email: string;
+  comment?: string;
+  address?: string;
   treatments: Treatment[];
 }
