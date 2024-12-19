@@ -150,8 +150,8 @@
   <div *ngIf="filteredClients.length > 0; else noResults">
     <div *ngFor="let client of filteredClients" class="client-card">
       <div class="client-header" style="display: flex; flex-direction: row; align-items: center">
-        <p><strong>{{'FIRST_NAME' | translate}}:</strong> {{ client.firstName }}</p>
-        <p><strong>{{'LAST_NAME' | translate}}:</strong> {{ client.lastName }}</p>
+        <p><strong>{{'FIRST_NAME' | translate}}: </strong> <span style="font-size: 18px;">{{ client.firstName }}</span></p>
+        <p><strong>{{'LAST_NAME' | translate}}: </strong> <span style="font-size: 18px;">{{ client.lastName }}</span></p>
         <button mat-icon-button style="color:green; margin-right: -15px;" (click)="editClient(client)">
           <mat-icon>face</mat-icon>
         </button>
@@ -159,57 +159,42 @@
           <mat-icon>delete_forever</mat-icon>
         </button>
       </div>
-
-      <!-- Add Treatment Button -->
       <div class="actions">
         <button mat-raised-button color="primary" (click)="openAddTreatmentDialog(client)">
           {{ 'ADD_TREATMENT' | translate}}
         </button>
       </div>
-
       <div *ngIf="client?.treatments && client.treatments.length > 0">
-        <table class="mobile-table">
-          <thead>
-            <tr>
-              <th>{{'DATE' | translate}}</th>
-              <th>{{'DESCRIPTION' | translate}}</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let treatment of client.treatments">
-              <td>{{ treatment.date | date: 'dd/MM' }}</td>
-              <td>
-                <table mat-table [dataSource]="treatment.jobs" class="mat-elevation-z8"
-                  style="margin-top: 16px; width: 100%;">
-                  <ng-container matColumnDef="jobType">
-                    <th mat-header-cell *matHeaderCellDef style="width: 70%;"> Job </th> 
-                    <td mat-cell *matCellDef="let job" style="width: 70%;">
-                      {{ job.jobType }}
-                      <br />
-                      <span *ngIf="job.description">
-                        <small>
-                          {{ job.description }}
-                        </small>
-                      </span>
-                    </td>
-                    <td mat-footer-cell *matFooterCellDef style="width: 70%;"> Total Price</td>
-                  </ng-container>
-                  <ng-container matColumnDef="price">
-                    <th mat-header-cell *matHeaderCellDef style="width: 15%;"> Price </th> 
-                    <td mat-cell *matCellDef="let job" style="width: 15%;">
-                      <span>{{ job.price }}</span>
-                      <span matTextPrefix>₪&nbsp;</span>
-                    </td>
-                    <td mat-footer-cell *matFooterCellDef style="width: 15%;">{{ treatment.totalPrice }}</td>
-                  </ng-container>
-                  <tr mat-header-row *matHeaderRowDef="treatmentDisplayedColumns"></tr>
-                  <tr mat-row *matRowDef="let row; columns: treatmentDisplayedColumns;"></tr>
-                  <tr mat-footer-row *matFooterRowDef="treatmentFooterDisplayedColumns"></tr>
-                </table>
+        <div *ngFor="let treatment of client.treatments">
+          <table mat-table [dataSource]="treatment.jobs" class="mat-elevation-z8"
+            style="margin-top: 16px; width: 100%;">
+            <ng-container matColumnDef="jobType">
+              <th mat-header-cell *matHeaderCellDef style="width: 70%;"> <span style="font-size: 18px;"><strong>{{
+                    treatment.date | date: 'dd/MM' }}</strong></span></th>
+              <td mat-cell *matCellDef="let job" style="width: 70%;">
+                {{ job.jobType }}
+                <br />
+                <span *ngIf="job.description">
+                  <small>
+                    {{ job.description }}
+                  </small>
+                </span>
               </td>
-            </tr>
-          </tbody>
-        </table>
+              <td mat-footer-cell *matFooterCellDef style="width: 70%;"> Total Price</td>
+            </ng-container>
+            <ng-container matColumnDef="price">
+              <th mat-header-cell *matHeaderCellDef style="width: 15%;"> Price </th>
+              <td mat-cell *matCellDef="let job" style="width: 15%;">
+                <span>{{ job.price }}</span>
+                <span matTextPrefix>₪&nbsp;</span>
+              </td>
+              <td mat-footer-cell *matFooterCellDef style="width: 15%;">{{ treatment.totalPrice }}</td>
+            </ng-container>
+            <tr mat-header-row *matHeaderRowDef="treatmentDisplayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: treatmentDisplayedColumns;"></tr>
+            <tr mat-footer-row *matFooterRowDef="treatmentFooterDisplayedColumns"></tr>
+          </table>
+        </div>
       </div>
     </div>
   </div>
