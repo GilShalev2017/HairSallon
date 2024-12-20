@@ -15,6 +15,10 @@
     <mat-form-field appearance="outline" class="search-field" style="width: 100%;">
       <mat-label>{{ 'SEARCH_BY_NAME' | translate }}</mat-label>
       <input matInput placeholder="{{ 'ENTER_NAME' | translate }}" [(ngModel)]="searchQuery">
+      <button *ngIf="searchQuery!==''" mat-icon-button matSuffix (click)="clearSearchQuery()"
+        style="margin-right: -16px;">
+        <mat-icon>clear</mat-icon>
+      </button>
       <button mat-icon-button matSuffix (click)="searchClients()">
         <mat-icon>search</mat-icon>
       </button>
@@ -118,10 +122,10 @@
       </div> -->
       <div class="client-header">
         <div class="client-info">
-          <span><strong>{{'FIRST_NAME' | translate}}: </strong> 
+          <span><strong>{{'FIRST_NAME' | translate}}: </strong>
             <span style="font-size: 16px;">{{ client.firstName }}</span>
           </span>
-          <span><strong>{{'LAST_NAME' | translate}}: </strong> 
+          <span><strong>{{'LAST_NAME' | translate}}: </strong>
             <span style="font-size: 16px;">{{ client.lastName }}</span>
           </span>
         </div>

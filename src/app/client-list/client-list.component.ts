@@ -189,8 +189,8 @@ export class ClientListComponent implements OnInit {
         this.clientService.addTreatment(client._id!, treatment).subscribe({
           next: (updatedClient) => {
             console.log('Client updated successfully', updatedClient);
-            this.getAllClients();
-            client.treatments.push(treatment);
+            // this.getAllClients();
+            client.treatments.unshift(treatment);
           },
           error: (err) => {
             console.error('Failed to add treatment', err);
@@ -214,5 +214,9 @@ export class ClientListComponent implements OnInit {
 
   clearSearch(field: keyof typeof this.search): void {
     this.search[field] = '';  // Clear the specific field
+  }
+
+  clearSearchQuery() {
+    this.searchQuery = '';
   }
 }
