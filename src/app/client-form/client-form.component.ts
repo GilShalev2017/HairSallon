@@ -102,15 +102,27 @@ export class ClientFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.clientForm = this.fb.group({
-      firstName: [this.data?.firstName || '', Validators.required],
-      lastName: [this.data?.lastName || '', Validators.required],
-      phone: [this.data?.phone || '', [Validators.required, Validators.pattern(/^\d{10}$/)]],
-      email: [this.data?.email || '', [Validators.email]],
-      comment: [this.data?.comment || ''],
-      address: [this.data?.address || ''],
-      _id: [this.data?._id || '']
-    });
+    if (this.isEditMode) {
+      this.clientForm = this.fb.group({
+        firstName: [this.data?.firstName || '', Validators.required],
+        lastName: [this.data?.lastName || '', Validators.required],
+        phone: [this.data?.phone || '', [Validators.required, Validators.pattern(/^\d{10}$/)]],
+        email: [this.data?.email || '', [Validators.email]],
+        comment: [this.data?.comment || ''],
+        address: [this.data?.address || ''],
+        _id: [this.data?._id || '']
+      });
+    }
+    else {
+      this.clientForm = this.fb.group({
+        firstName: [this.data?.firstName || '', Validators.required],
+        lastName: [this.data?.lastName || '', Validators.required],
+        phone: [this.data?.phone || '', [Validators.required, Validators.pattern(/^\d{10}$/)]],
+        email: [this.data?.email || '', [Validators.email]],
+        comment: [this.data?.comment || ''],
+        address: [this.data?.address || '']
+      });
+    }
 
     this.clientForm.get('phone')?.valueChanges.subscribe(() => {
       this.duplicateError = null;
