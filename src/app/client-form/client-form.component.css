@@ -1,3 +1,24 @@
 .mat-mdc-form-field {
     display: block;
 }
+
+.input-wrapper {
+    display: flex;
+    align-items: center;
+    /* gap: 8px; */
+}
+
+.input-wrapper input {
+    flex: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+mat-icon,
+button[mat-icon-button] {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
