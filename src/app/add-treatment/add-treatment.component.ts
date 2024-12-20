@@ -33,7 +33,6 @@ export class AddTreatmentComponent implements OnInit {
   ];
   currentEditedJob: Job = { jobType: '', price: 0, colors: [], description: '' };
   showActions: boolean = true;
-  addedJobTypes: string[] = [];
 
   constructor(private dialogRef: MatDialogRef<AddTreatmentComponent>) { }
 
@@ -49,50 +48,42 @@ export class AddTreatmentComponent implements OnInit {
     const selectedJob = this.jobTypes.find(j => j.name === jobType);
     if (selectedJob) {
       this.currentEditedJob.price = selectedJob.defaultPrice;
-      if (jobType === JobType.HairDyeing && !this.currentEditedJob.colors?.length) {
-        this.addColorToCurrentJob(); // Open default editor for colors if it's HairDyeing
-      }
-      if (!this.addedJobTypes.includes(jobType)) {
-        this.addedJobTypes.push(jobType); // Track added job types
-      }
     }
   }
 
   isJobTypeAdded(jobTypeItem: JobTypeItem): boolean {
-    return this.addedJobTypes.includes(jobTypeItem.name);
+    //return this.addedJobTypes.includes(jobTypeItem.name);
+    return this.treatment.jobs.some(job => job.jobType === jobTypeItem.name);
   }
   addJob() {
-    // Before adding the job, we remove empty color rows
+    // Remove empty color rows before adding
     this.removeEmptyColorRows();
-    // Find the JobTypeItem corresponding to currentEditedJob.jobType
+
+    // Ensure the selected job type exists
     const jobTypeItem = this.jobTypes.find(j => j.name === this.currentEditedJob.jobType);
-    // Check if the jobTypeItem exists and if the job type has been added
-    if (jobTypeItem && this.isJobTypeAdded(jobTypeItem)) {
-      // Add the currentEditedJob to the treatment.jobs array
+    if (jobTypeItem) {
+      // Add the current job to the treatment.jobs array
       this.treatment.jobs.push({ ...this.currentEditedJob });
+
       // Update the table data source
       this.updateTableDataSource();
+
       // Recalculate the total price
       this.calculateTotalPrice();
+
       // Reset currentEditedJob for the next job
       this.currentEditedJob = { jobType: '', price: 0, colors: [], description: '' };
     } else {
-      // Handle the case where the job type is not added or jobTypeItem is undefined
-      console.error('Job type is not added or invalid.');
+      console.error('Invalid job type.');
     }
   }
+
   removeJob(index: number) {
     // Remove the job from jobs array and from addedJobTypes
     const removedJob = this.treatment.jobs[index];
     this.treatment.jobs.splice(index, 1);
     this.updateTableDataSource();
     this.calculateTotalPrice();
-
-    // Also remove from addedJobTypes
-    const indexInAddedJobTypes = this.addedJobTypes.indexOf(removedJob.jobType);
-    if (indexInAddedJobTypes !== -1) {
-      this.addedJobTypes.splice(indexInAddedJobTypes, 1); // Remove job type from addedJobTypes
-    }
   }
 
   addColorToCurrentJob() {

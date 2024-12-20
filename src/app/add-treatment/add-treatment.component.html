@@ -1,18 +1,17 @@
-<h1 mat-dialog-title>Add Treatment</h1>
+<h1 mat-dialog-title>{{'ADD_TREATMENT_DETAILS' | translate}}</h1>
 <div mat-dialog-content>
-    <form>
-        <br>
-        <mat-form-field appearance="outline" style="width: 100%; margin-bottom: 16px;">
+    <form #clientForm="ngForm">
+        <mat-form-field appearance="outline" style="width: 100%;margin-top: 4px;">
             <mat-label>{{ 'DATE' | translate }}</mat-label>
             <input matInput [(ngModel)]="treatment.date" [matDatepicker]="picker" name="date" required />
             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
             <mat-datepicker #picker></mat-datepicker>
         </mat-form-field>
-        <div style="display: flex; gap: 16px; margin-bottom: 16px;">
+        <div style="display: flex; gap: 16px;">
             <mat-form-field appearance="outline" style="flex: 6;">
                 <mat-label>Job Type</mat-label>
                 <mat-select [(ngModel)]="currentEditedJob.jobType" name="jobType"
-                    (selectionChange)="onJobTypeChange($event.value)" required>
+                    (selectionChange)="onJobTypeChange($event.value)">
                     <mat-option *ngFor="let jobType of jobTypes" [value]="jobType.name"
                         [disabled]="isJobTypeAdded(jobType)">
                         {{ jobType.name }}
@@ -26,22 +25,22 @@
                 <span matTextPrefix>₪&nbsp;</span>
             </mat-form-field>
         </div>
-        <mat-form-field appearance="outline" style="width:100%; margin-bottom: 16px;">
+        <mat-form-field appearance="outline" style="width:100%;">
             <mat-label>Add description</mat-label>
             <textarea matInput [(ngModel)]="currentEditedJob.description" name="description"
-            placeholder="Ex. 70(40gr) + 7.1(40gr) + 6% Bleach 6% גוונים"></textarea>
+                placeholder="Ex. 70(40gr) + 7.1(40gr) + 6% Bleach 6% גוונים"></textarea>
         </mat-form-field>
         <div style="text-align: right; margin-bottom: 16px;">
             <button mat-raised-button color="accent" (click)="addJob()" [disabled]="!currentEditedJob.jobType">
                 Add Job
             </button>
         </div>
-        <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" style="margin-top: 16px; width: 100%;">
+        <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" style="width: 100%;">
             <ng-container matColumnDef="jobType">
                 <th mat-header-cell *matHeaderCellDef style="width: 70%;"> Job </th>
                 <td mat-cell *matCellDef="let job" style="width: 70%;">
                     {{ job.jobType }}
-                    <br/>
+                    <br />
                     <span *ngIf="job.description">
                         <small>
                             {{ job.description }}
@@ -74,12 +73,13 @@
         </table>
         <div class="footer" style="display: flex; justify-content: flex-end; align-items: center; margin-top: 16px;">
             <button mat-button (click)="onCancel()">Cancel</button>
-            <button mat-raised-button color="primary" (click)="onSaveTreatment()">Save</button>
+            <button mat-raised-button color="primary" (click)="onSaveTreatment()"
+                [disabled]="dataSource.data.length === 0">Save</button>
         </div>
     </form>
 </div>
 
- <!-- <div *ngIf="isHairDyeing()">
+<!-- <div *ngIf="isHairDyeing()">
             <div *ngFor="let color of currentEditedJob.colors || []; let i = index" class="color-input-group"
                 style="display: flex; align-items: center; margin-bottom: 10px;">
                 <mat-form-field appearance="fill" style="width: 40%; margin-right: 10px;">
@@ -98,7 +98,7 @@
             </div>
         </div> -->
 
-          <!--<span *ngIf="job.colors && job.colors.length">
+<!--<span *ngIf="job.colors && job.colors.length">
                         <small *ngFor="let color of job.colors">
                             {{ color.colorNumber }} ({{ color.colorAmount }} grams)
                         </small>
