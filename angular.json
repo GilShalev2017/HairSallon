@@ -25,7 +25,8 @@
                 "glob": "**/*",
                 "input": "public"
               },
-               "src/assets"
+              "src/assets",
+              "src/manifest.json"
             ],
             "styles": [
               "src/styles.css",
@@ -44,12 +45,12 @@
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "2MB",
-                  "maximumError": "2MB"
+                  "maximumWarning": "3MB",
+                  "maximumError": "3MB"
                 },
                 {
                   "type": "anyComponentStyle",
-                  "maximumWarning": "2kB",
+                  "maximumWarning": "3kB",
                   "maximumError": "4kB"
                 }
               ],
@@ -91,7 +92,8 @@
                 "glob": "**/*",
                 "input": "public"
               },
-               "src/assets"
+              "src/manifest.json",
+              "src/assets"
             ],
             "styles": [
               "src/styles.css",
