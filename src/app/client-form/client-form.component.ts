@@ -14,7 +14,7 @@
 //   duplicateError: string | null = null;
 //   @ViewChild('emailModel') emailModel!: NgModel;
 //   @ViewChild('clientForm') clientForm!: NgForm;
-  
+
 //   constructor(public dialogRef: MatDialogRef<ClientFormComponent>,
 //     @Inject(MAT_DIALOG_DATA) public data: Client,
 //     private clientService: ClientService,
@@ -96,7 +96,7 @@ export class ClientFormComponent implements OnInit {
     private clientService: ClientService,
     private fb: FormBuilder
   ) {
-    if(data !== null){ //we are in edit mode
+    if (data !== null) { //we are in edit mode
       this.isEditMode = true;
     }
   }
@@ -130,21 +130,23 @@ export class ClientFormComponent implements OnInit {
   }
 
   checkDuplicatePhone(): void {
-    const phone = this.clientForm.get('phone')?.value;
-    if (phone) {
-      this.clientService.isDuplicateClientByPhone(phone).subscribe(response => {
-        if (response.exists) {
-          this.duplicateError = 'A client with this phone number already exists.';
-          this.clientForm.get('phone')?.setErrors({ duplicate: true });
-        } else {
-          this.duplicateError = null;
-          this.clientForm.get('phone')?.setErrors(null);
-        }
-      });
+    if (!this.isEditMode) {
+      const phone = this.clientForm.get('phone')?.value;
+      if (phone) {
+        this.clientService.isDuplicateClientByPhone(phone).subscribe(response => {
+          if (response.exists) {
+            this.duplicateError = 'A client with this phone number already exists.';
+            this.clientForm.get('phone')?.setErrors({ duplicate: true });
+          } else {
+            this.duplicateError = null;
+            this.clientForm.get('phone')?.setErrors(null);
+          }
+        });
+      }
     }
   }
 
-  setFocus(controlName: string){
+  setFocus(controlName: string) {
     this.focusedControl = controlName;
   }
 }
