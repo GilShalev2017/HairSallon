@@ -88,13 +88,18 @@ export class ClientFormComponent implements OnInit {
   clientForm!: FormGroup;
   focusedControl: string = '';
   duplicateError: string | null = null;
+  isEditMode = false;
 
   constructor(
     public dialogRef: MatDialogRef<ClientFormComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private clientService: ClientService,
     private fb: FormBuilder
-  ) {}
+  ) {
+    if(data !== null){ //we are in edit mode
+      this.isEditMode = true;
+    }
+  }
 
   ngOnInit(): void {
     this.clientForm = this.fb.group({
@@ -103,7 +108,8 @@ export class ClientFormComponent implements OnInit {
       phone: [this.data?.phone || '', [Validators.required, Validators.pattern(/^\d{10}$/)]],
       email: [this.data?.email || '', [Validators.email]],
       comment: [this.data?.comment || ''],
-      address: [this.data?.address || '']
+      address: [this.data?.address || ''],
+      _id: [this.data?._id || '']
     });
 
     this.clientForm.get('phone')?.valueChanges.subscribe(() => {

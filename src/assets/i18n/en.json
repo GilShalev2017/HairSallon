@@ -28,5 +28,6 @@
     "COMMENT": "Comment",
     "ADDRESS": "Address",
     "SEARCH_BY_NAME": "Search By Name",
-    "ENTER_NAME": "Enter Name"
+    "ENTER_NAME": "Enter Name",
+    "EDIT_CLIENT_DETAILS": "Edit Client Details"
 }
