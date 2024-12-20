@@ -9,7 +9,7 @@
         </mat-form-field>
         <div style="display: flex; gap: 16px;">
             <mat-form-field appearance="outline" style="flex: 6;">
-                <mat-label>Job Type</mat-label>
+                <mat-label>Service</mat-label>
                 <mat-select [(ngModel)]="currentEditedJob.jobType" name="jobType"
                     (selectionChange)="onJobTypeChange($event.value)">
                     <mat-option *ngFor="let jobType of jobTypes" [value]="jobType.name"
@@ -32,7 +32,7 @@
         </mat-form-field>
         <div style="text-align: right; margin-bottom: 16px;">
             <button mat-raised-button color="accent" (click)="addJob()" [disabled]="!currentEditedJob.jobType">
-                Add Job
+                Add Service
             </button>
         </div>
         <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" style="width: 100%;">
